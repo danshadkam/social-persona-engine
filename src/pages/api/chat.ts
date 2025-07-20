@@ -18,18 +18,71 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
+    // IMMEDIATE FIX - Force reload memory on every chat request
+    try {
+      await enhancedMemory.forceReload();
+      console.log('🔄 Memory force reloaded for chat request');
+    } catch (reloadError) {
+      console.warn('⚠️ Memory reload failed:', reloadError);
+    }
+
     console.log(`💬 Chat request from user to @${username}: "${message.substring(0, 50)}..."`);
     
-    // Get enhanced profile with conversation context
-    const profile = await enhancedMemory.getProfile(username);
+    // Enhanced profile retrieval with auto-recovery
+    let profile = await enhancedMemory.getProfile(username);
     
+    // Auto-recovery: If profile not found, try multiple recovery methods
     if (!profile) {
+      console.log(`🔄 Profile ${username} not found, attempting auto-recovery...`);
+      
+      // Method 1: Force reload from file
+      try {
+        await enhancedMemory.forceReload();
+        profile = await enhancedMemory.getProfile(username);
+        if (profile) {
+          console.log(`✅ Profile ${username} recovered via force reload`);
+        }
+      } catch (reloadError) {
+        console.error('❌ Force reload failed:', reloadError);
+      }
+      
+      // Method 2: Auto re-analysis if still not found
+      if (!profile) {
+        console.log(`🔄 Attempting auto re-analysis for ${username}...`);
+        try {
+          const analyzeResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/analyze`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username })
+          });
+          
+          if (analyzeResponse.ok) {
+            console.log(`✅ Auto re-analysis successful for ${username}`);
+            profile = await enhancedMemory.getProfile(username);
+          }
+        } catch (autoAnalyzeError) {
+          console.error('❌ Auto re-analysis failed:', autoAnalyzeError);
+        }
+      }
+    }
+    
+    // If still no profile after all recovery attempts
+    if (!profile) {
+      const memoryStats = enhancedMemory.getMemoryStats();
+      console.log(`❌ Profile ${username} still not found after all recovery attempts`);
+      console.log(`🔍 Available profiles: ${memoryStats.keys.join(', ')}`);
+      
       return res.status(400).json({ 
         error: 'Profile analysis not found. Please analyze the profile first.',
-        suggestion: 'Click the "Analyze" tab to analyze the Instagram profile before chatting.'
+        suggestion: 'Click the "Analyze" tab to analyze the Instagram profile before chatting.',
+        autoRecoveryAttempted: true,
+        availableProfiles: memoryStats.keys,
+        requestedProfile: username
       });
     }
 
+    console.log(`✅ Profile found for ${username}, proceeding with chat...`);
+    
     // Add user message to conversation history
     const userMessage: ConversationMessage = {
       role: 'user',
