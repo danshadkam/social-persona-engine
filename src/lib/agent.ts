@@ -14,8 +14,7 @@ export interface PersonalityAnalysis {
 }
 
 export async function analyzePersonality(profileData: ProfileData): Promise<PersonalityAnalysis> {
-  const prompt = `
-Analyze the following Instagram profile data and provide a comprehensive personality analysis:
+  const prompt = `Analyze the following Instagram profile data and provide a comprehensive personality analysis:
 
 Username: ${profileData.username}
 Bio: ${profileData.bio}
@@ -29,7 +28,8 @@ ${profileData.posts.map(post => `
 - Comments: ${post.comments.map(c => `"${c.text}"`).join(', ')}
 `).join('\n')}
 
-Based on this data, analyze the person's personality and return a JSON object with the following structure:
+IMPORTANT: Return ONLY a valid JSON object with NO markdown formatting, code blocks, or extra text.
+
 {
   "traits": ["list of personality traits"],
   "communication_style": "description of how they communicate",
@@ -45,8 +45,7 @@ Focus on:
 4. Values and beliefs they express
 5. Overall personality summary
 
-Be specific and insightful while remaining objective.
-`;
+Be specific and insightful while remaining objective.`;
 
   try {
     const response = await openai.chat.completions.create({
@@ -70,8 +69,18 @@ Be specific and insightful while remaining objective.
       throw new Error('No response from OpenAI');
     }
 
+    // Extract JSON from response (handle markdown code blocks)
+    let jsonContent = content.trim();
+    
+    // Remove markdown code block markers if present
+    if (jsonContent.startsWith('```json')) {
+      jsonContent = jsonContent.replace(/^```json\s*/, '').replace(/\s*```$/, '');
+    } else if (jsonContent.startsWith('```')) {
+      jsonContent = jsonContent.replace(/^```\s*/, '').replace(/\s*```$/, '');
+    }
+    
     // Parse JSON response
-    const analysis = JSON.parse(content) as PersonalityAnalysis;
+    const analysis = JSON.parse(jsonContent) as PersonalityAnalysis;
     
     // Validate the response structure
     if (!analysis.traits || !analysis.communication_style || !analysis.interests || !analysis.values || !analysis.summary) {

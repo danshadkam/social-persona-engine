@@ -75,26 +75,43 @@ export default function Home() {
   const handleSendMessage = async () => {
     if (!currentMessage.trim() || !analysis) return;
 
+    const messageToSend = currentMessage; // Store message before clearing
     const userMessage: ChatMessage = { role: 'user', content: currentMessage };
     setChatMessages(prev => [...prev, userMessage]);
     setCurrentMessage('');
     setIsChatting(true);
 
     try {
+      console.log('Sending chat request:', { message: messageToSend, username });
+      
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          message: currentMessage,
+          message: messageToSend,
           username,
-          analysis,
         }),
       });
+      
+      console.log('Chat response status:', response.status, response.statusText);
 
       if (!response.ok) {
-        throw new Error('Chat failed');
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        console.error('Chat API error:', response.status, errorData);
+        
+        if (response.status === 400 && errorData.error?.includes('Profile analysis not found')) {
+          // Show user-friendly message instead of throwing error
+          const errorMessage: ChatMessage = { 
+            role: 'assistant', 
+            content: '⚠️ Please analyze a profile first before chatting. Go to the "Analyze" tab and enter an Instagram username (like "nasa" or "spacex").' 
+          };
+          setChatMessages(prev => [...prev, errorMessage]);
+          return;
+        }
+        
+        throw new Error(errorData.error || `Chat failed: ${response.status} ${response.statusText}`);
       }
 
       const data = await response.json();
