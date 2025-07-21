@@ -22,565 +22,180 @@
  * mcpConfig.updateConfig({ timeout: 60000, retryAttempts: 5 });
  */
 
-export interface MCPConfig {
+import { ProfileData } from './scraper';
+
+interface BrightDataConfig {
   apiToken: string;
-  webUnlockerZone?: string;
-  browserZone?: string;
-  rateLimit?: string;
+  zone: string;
   timeout?: number;
-  retryAttempts?: number;
-  retryDelay?: number;
 }
 
-export interface MCPResponse<T = any> {
-  success: boolean;
-  data?: T;
-  error?: string;
-  metadata?: {
-    timestamp: string;
-    duration: number;
-    source: 'mcp' | 'api' | 'fallback';
-    attempts: number;
+interface WebUnlockerRequest {
+  zone: string;
+  url: string;
+  format: string;
+  method: string;
+  country?: string;
+  render?: boolean;
+  screenshot?: boolean;
+  screenshot_options?: {
+    full_page?: boolean;
+    format?: 'png' | 'jpeg';
+    quality?: number;
   };
+  headers?: Record<string, string>;
+  wait_for?: string;
+  timeout?: number;
 }
 
-export interface InstagramProfileData {
-  username: string;
-  bio: string;
-  followers: number;
-  following: number;
-  posts: Array<{
-    caption: string;
-    likes: number;
-    timestamp: string;
-    media_url?: string;
-  }>;
-  profile_image_url?: string;
-  is_verified?: boolean;
-  external_url?: string;
-}
-
-export interface WebUnlockerData {
-  html: string;
+interface WebUnlockerResponse {
   url: string;
   status_code: number;
   headers: Record<string, string>;
-  cookies?: Array<{
-    name: string;
-    value: string;
-    domain: string;
-  }>;
+  body: string;
+  screenshot?: string; // Base64 encoded screenshot
+  timestamp: string;
+  ip?: string;
+  country?: string;
 }
 
-export interface SERPData {
-  query: string;
-  results: Array<{
-    title: string;
-    url: string;
-    snippet: string;
-    position: number;
-  }>;
-  total_results?: number;
-  search_time?: number;
-}
+export class BrightDataWebUnlocker {
+  private config: BrightDataConfig;
+  private readonly API_ENDPOINT = 'https://api.brightdata.com/request';
 
-export class BrightDataMCPConfig {
-  private config: MCPConfig;
-  private connectionPool: Map<string, any> = new Map();
-  private isInitialized: boolean = false;
-
-  constructor(config?: Partial<MCPConfig>) {
-    this.config = this.validateAndSetConfig(config);
+  constructor(config: BrightDataConfig) {
+    this.config = config;
   }
 
-  /**
-   * Validates environment variables and configuration
-   */
-  private validateAndSetConfig(userConfig?: Partial<MCPConfig>): MCPConfig {
-    const apiToken = userConfig?.apiToken || process.env.BRIGHT_DATA_API_TOKEN;
+  async scrapeInstagramProfile(username: string): Promise<WebUnlockerResponse> {
+    const cleanUsername = username.replace('@', '');
+    const targetUrl = `https://www.instagram.com/${cleanUsername}/`;
     
-    if (!apiToken) {
-      console.warn('⚠️ BRIGHT_DATA_API_TOKEN not found - MCP will use fallback mode');
-      // Use a placeholder token for development mode
-      const placeholderToken = 'development_mode_placeholder_token';
-      
-      const config: MCPConfig = {
-        apiToken: placeholderToken,
-        webUnlockerZone: userConfig?.webUnlockerZone || process.env.BRIGHT_DATA_WEB_UNLOCKER_ZONE || 'mcp_unlocker',
-        browserZone: userConfig?.browserZone || process.env.BRIGHT_DATA_BROWSER_ZONE || 'mcp_browser',
-        rateLimit: userConfig?.rateLimit || process.env.BRIGHT_DATA_RATE_LIMIT || '100/1h',
-        timeout: userConfig?.timeout || 30000, // 30 seconds
-        retryAttempts: userConfig?.retryAttempts || 3,
-        retryDelay: userConfig?.retryDelay || 1000, // 1 second
-      };
-      
-      console.log('🔧 MCP configuration loaded in development mode');
-      return config;
-    }
-
-    // Validate API token format
-    if (typeof apiToken !== 'string' || apiToken.length < 10) {
-      throw new Error(
-        'Invalid BRIGHT_DATA_API_TOKEN format. Expected a string with at least 10 characters.'
-      );
-    }
-
-    const config: MCPConfig = {
-      apiToken,
-      webUnlockerZone: userConfig?.webUnlockerZone || process.env.BRIGHT_DATA_WEB_UNLOCKER_ZONE || 'mcp_unlocker',
-      browserZone: userConfig?.browserZone || process.env.BRIGHT_DATA_BROWSER_ZONE || 'mcp_browser',
-      rateLimit: userConfig?.rateLimit || process.env.BRIGHT_DATA_RATE_LIMIT || '100/1h',
-      timeout: userConfig?.timeout || 30000, // 30 seconds
-      retryAttempts: userConfig?.retryAttempts || 3,
-      retryDelay: userConfig?.retryDelay || 1000, // 1 second
+    console.log(`🌐 [Web Unlocker] Scraping: ${targetUrl}`);
+    
+    const requestBody: WebUnlockerRequest = {
+      zone: this.config.zone,
+      url: targetUrl,
+      format: 'json',
+      method: 'GET',
+      country: 'us',
+      render: true, // Enable JavaScript rendering for dynamic content
+      screenshot: true, // Capture screenshot for visual analysis
+      screenshot_options: {
+        full_page: true,
+        format: 'png',
+        quality: 80
+      },
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'DNT': '1',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1',
+      },
+      wait_for: 'networkidle2', // Wait for network to be idle
+      timeout: this.config.timeout || 30000
     };
 
-    console.log('✅ Bright Data MCP configuration validated successfully');
-    console.log(`🔧 Using zones: Unlocker(${config.webUnlockerZone}), Browser(${config.browserZone})`);
-    
-    return config;
-  }
-
-  /**
-   * Initialize the MCP connection
-   */
-  async initialize(): Promise<void> {
-    if (this.isInitialized) {
-      return;
-    }
-
     try {
-      console.log('🔄 Initializing Bright Data MCP connection...');
-      
-      // Always attempt connection test, but handle failures gracefully
-      if (!this.config.apiToken.includes('placeholder')) {
-        try {
-          await this.testConnection();
-        } catch (connectionError) {
-          console.warn('⚠️ Connection test failed, but continuing with initialization:', 
-            connectionError instanceof Error ? connectionError.message : 'Unknown error');
-          // Continue with initialization even if connection test fails
-        }
-      } else {
-        console.log('⚠️ Using placeholder token - development mode active');
-      }
-      
-      this.isInitialized = true;
-      console.log('✅ Bright Data MCP initialized successfully');
-    } catch (error) {
-      console.error('❌ Failed to initialize Bright Data MCP:', error);
-      // Don't throw error in development mode
-      if (process.env.NODE_ENV === 'development') {
-        console.warn('🔧 Continuing in development mode despite initialization issues');
-        this.isInitialized = true;
-        return;
-      }
-      throw new Error(`MCP initialization failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
-    }
-  }
-
-  /**
-   * Test the connection to Bright Data API
-   */
-  private async testConnection(): Promise<void> {
-    try {
-      // Use a simple connectivity test first
-      const connectivityResponse = await fetch('https://brightdata.com', {
-        method: 'HEAD',
-        signal: AbortSignal.timeout(10000), // 10 second timeout for connectivity
+      console.log(`📡 [Web Unlocker] Making API request...`, {
+        zone: this.config.zone,
+        url: targetUrl,
+        render: requestBody.render,
+        screenshot: requestBody.screenshot
       });
 
-      if (!connectivityResponse.ok && connectivityResponse.status !== 405) {
-        throw new Error(`Basic connectivity failed: ${connectivityResponse.status}`);
+      const response = await fetch(this.API_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${this.config.apiToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`❌ [Web Unlocker] API error (${response.status}):`, errorText);
+        throw new Error(`Web Unlocker API error (${response.status}): ${errorText}`);
       }
 
-      // Skip detailed API testing since Instagram scraping is working perfectly
-      // The main functionality (datasets API) is proven to work
-      console.log('✅ Skipping detailed API test - core functionality verified');
-      return;
+      const data = await response.json() as WebUnlockerResponse;
       
+      console.log(`✅ [Web Unlocker] Success!`, {
+        statusCode: data.status_code,
+        hasScreenshot: !!data.screenshot,
+        bodyLength: data.body?.length || 0,
+        country: data.country || 'unknown'
+      });
+
+      return data;
     } catch (error) {
-      if (error instanceof Error && error.name === 'AbortError') {
-        throw new Error('Connection test timed out');
-      }
-      
-      // In development mode, log warning but don't fail
-      if (process.env.NODE_ENV === 'development') {
-        console.warn(`⚠️ Connection test failed in development mode: ${error instanceof Error ? error.message : 'Unknown error'}`);
-        return;
-      }
-      
+      console.error(`❌ [Web Unlocker] Request failed:`, error);
       throw error;
     }
   }
 
-  /**
-   * Make a request with retry logic and error handling
-   */
-  private async makeRequest<T>(
-    url: string,
-    options: RequestInit,
-    toolName: string
-  ): Promise<MCPResponse<T>> {
-    const startTime = Date.now();
-    let lastError: Error | null = null;
+  async scrapeGenericUrl(targetUrl: string): Promise<WebUnlockerResponse> {
+    console.log(`🌐 [Web Unlocker] Scraping generic URL: ${targetUrl}`);
+    
+    const requestBody: WebUnlockerRequest = {
+      zone: this.config.zone,
+      url: targetUrl,
+      format: 'json',
+      method: 'GET',
+      country: 'us',
+      render: true,
+      timeout: this.config.timeout || 30000
+    };
 
-    // Skip real API calls if token looks invalid
-    if (this.config.apiToken.includes('placeholder') || this.config.apiToken.length < 20) {
-      console.log(`🔄 Development mode: Simulating ${toolName}...`);
-      await this.delay(1000); // Simulate API delay
-      
-      return {
-        success: false,
-        error: 'Development mode - no real API token configured',
-        metadata: {
-          timestamp: new Date().toISOString(),
-          duration: Date.now() - startTime,
-          source: 'fallback',
-          attempts: 1,
-        },
-      };
-    }
-
-    for (let attempt = 1; attempt <= this.config.retryAttempts!; attempt++) {
-      try {
-        console.log(`🔄 Attempt ${attempt}/${this.config.retryAttempts} for ${toolName}`);
-
-        // Prepare headers with proper authentication
-        const headers: Record<string, string> = {
+    try {
+      const response = await fetch(this.API_ENDPOINT, {
+        method: 'POST',
+        headers: {
           'Authorization': `Bearer ${this.config.apiToken}`,
           'Content-Type': 'application/json',
-          ...options.headers as Record<string, string>,
-        };
-
-        const response = await fetch(url, {
-          ...options,
-          signal: AbortSignal.timeout(this.config.timeout!),
-          headers,
-        });
-
-        console.log(`📡 Response status: ${response.status} ${response.statusText}`);
-
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error(`❌ API Error Response:`, errorText);
-          throw new Error(`API request failed: ${response.status} ${response.statusText} - ${errorText}`);
-        }
-
-        const data = await response.json();
-        const duration = Date.now() - startTime;
-
-        console.log(`✅ ${toolName} completed successfully in ${duration}ms`);
-
-        return {
-          success: true,
-          data: data.result || data.data || data,
-          metadata: {
-            timestamp: new Date().toISOString(),
-            duration,
-            source: 'mcp',
-            attempts: attempt,
-          },
-        };
-
-      } catch (error) {
-        lastError = error instanceof Error ? error : new Error('Unknown error');
-        console.error(`❌ Attempt ${attempt} failed for ${toolName}:`, lastError.message);
-        
-        if (attempt < this.config.retryAttempts!) {
-          const delayMs = this.config.retryDelay! * attempt;
-          console.log(`⏳ Retrying in ${delayMs}ms...`);
-          await this.delay(delayMs);
-        }
-      }
-    }
-
-    console.error(`❌ All ${this.config.retryAttempts} attempts failed for ${toolName}`);
-
-    return {
-      success: false,
-      error: lastError?.message || 'Unknown error after all retry attempts',
-      metadata: {
-        timestamp: new Date().toISOString(),
-        duration: Date.now() - startTime,
-        source: 'fallback',
-        attempts: this.config.retryAttempts!,
-      },
-    };
-  }
-
-  /**
-   * Scrape Instagram profile data using Web Unlocker
-   */
-  async scrapeInstagramProfile(username: string): Promise<MCPResponse<InstagramProfileData>> {
-    await this.initialize();
-
-    console.log(`🔍 Scraping Instagram profile: @${username} via Web Unlocker`);
-
-    // Use Web Unlocker - this works with any API token
-    const response = await this.makeRequest<any>(
-      'https://api.brightdata.com/request',
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          url: `https://www.instagram.com/${username}/`,
-          zone: this.config.webUnlockerZone,
-          format: 'json',
-          country: 'US',
-          render: 'html'
-        }),
-      },
-      `Instagram Web Unlocker (@${username})`
-    );
-
-    if (response.success) {
-      console.log('✅ Web Unlocker successful - HTML received');
-      // Since parsing Instagram HTML is complex, we'll use enhanced mock data
-      // But mark it as having real connectivity
-      return {
-        success: false, // Force fallback to enhanced mock
-        error: 'Web Unlocker successful but HTML parsing not implemented - using enhanced mock data',
-        metadata: {
-          timestamp: response.metadata?.timestamp || new Date().toISOString(),
-          duration: response.metadata?.duration || 0,
-          source: 'web_unlocker_html' as 'mcp',
-          attempts: response.metadata?.attempts || 1
-        }
-      };
-    }
-    
-    return response as MCPResponse<InstagramProfileData>;
-  }
-
-  /**
-   * Unlock web content using Web Unlocker
-   */
-  async unlockWebContent(url: string): Promise<MCPResponse<WebUnlockerData>> {
-    await this.initialize();
-
-    console.log(`🔓 Unlocking web content: ${url}`);
-
-    // Use correct Bright Data Unlocker API endpoint
-    return this.makeRequest<WebUnlockerData>(
-      'https://api.brightdata.com/request',
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          url,
-          method: 'GET',
-          zone: this.config.webUnlockerZone,
-          format: 'raw',
-        }),
-      },
-      `Web Unlocker (${this.extractDomain(url)})`
-    );
-  }
-
-  /**
-   * Perform SERP (Search Engine Results Page) search
-   */
-  async searchSERP(query: string, searchEngine: string = 'google'): Promise<MCPResponse<SERPData>> {
-    await this.initialize();
-
-    console.log(`🔍 SERP search: "${query}" on ${searchEngine}`);
-
-    // Use correct Bright Data SERP API endpoint
-    return this.makeRequest<SERPData>(
-      'https://api.brightdata.com/request',
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          url: `https://www.google.com/search?q=${encodeURIComponent(query)}`,
-          method: 'GET',
-          zone: this.config.browserZone,
-          format: 'json',
-          country: 'US',
-        }),
-      },
-      `SERP Search (${searchEngine})`
-    );
-  }
-
-  /**
-   * Get account information and usage statistics
-   */
-  async getAccountInfo(): Promise<MCPResponse<any>> {
-    await this.initialize();
-
-    console.log('📊 Fetching account information...');
-
-    // Skip account info in development mode to avoid 400 errors
-    if (this.config.apiToken.includes('placeholder') || process.env.NODE_ENV === 'development') {
-      return {
-        success: false,
-        error: 'Account info skipped in development mode',
-        metadata: {
-          timestamp: new Date().toISOString(),
-          duration: 0,
-          source: 'fallback' as const,
-          attempts: 0,
         },
-      };
-    }
+        body: JSON.stringify(requestBody),
+      });
 
-    // Use Active Zones endpoint which is more reliable
-    return this.makeRequest(
-      'https://api.brightdata.com/zone/active',
-      { method: 'GET' },
-      'Account Information'
-    );
-  }
-
-  /**
-   * Health check for the MCP service
-   */
-  async healthCheck(): Promise<MCPResponse<{ status: string; timestamp: string }>> {
-    try {
-      // Skip real connection test in development mode
-      if (this.config.apiToken.includes('placeholder')) {
-        return {
-          success: true,
-          data: {
-            status: 'healthy (development mode)',
-            timestamp: new Date().toISOString(),
-          },
-          metadata: {
-            timestamp: new Date().toISOString(),
-            duration: 0,
-            source: 'fallback',
-            attempts: 1,
-          },
-        };
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${await response.text()}`);
       }
 
-      await this.testConnection();
-      return {
-        success: true,
-        data: {
-          status: 'healthy',
-          timestamp: new Date().toISOString(),
-        },
-        metadata: {
-          timestamp: new Date().toISOString(),
-          duration: 0,
-          source: 'mcp',
-          attempts: 1,
-        },
-      };
+      return await response.json() as WebUnlockerResponse;
     } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Health check failed',
-        metadata: {
-          timestamp: new Date().toISOString(),
-          duration: 0,
-          source: 'mcp',
-          attempts: 1,
-        },
-      };
-    }
-  }
-
-  /**
-   * Fallback method to scrape Instagram using Web Unlocker
-   */
-  async scrapeInstagramWithUnlocker(username: string): Promise<MCPResponse<any>> {
-    await this.initialize();
-
-    console.log(`🔓 Fallback: Using Web Unlocker for Instagram @${username}`);
-
-    return this.makeRequest<any>(
-      'https://api.brightdata.com/request',
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          url: `https://www.instagram.com/${username}/`,
-          zone: this.config.webUnlockerZone,
-          format: 'json',
-          country: 'US'
-        }),
-      },
-      `Instagram Web Unlocker (@${username})`
-    );
-  }
-
-  /**
-   * Get current configuration
-   */
-  getConfig(): Omit<MCPConfig, 'apiToken'> {
-    const { apiToken, ...config } = this.config;
-    return {
-      ...config,
-      // Mask the API token for security
-      apiToken: apiToken.includes('placeholder') 
-        ? 'development_mode' 
-        : `${apiToken.substring(0, 8)}...${apiToken.substring(apiToken.length - 4)}`,
-    } as any;
-  }
-
-  /**
-   * Update configuration (useful for testing different zones)
-   */
-  updateConfig(newConfig: Partial<MCPConfig>): void {
-    this.config = { ...this.config, ...newConfig };
-    this.isInitialized = false; // Force re-initialization
-    console.log('🔧 MCP configuration updated');
-  }
-
-  /**
-   * Clean up resources
-   */
-  async cleanup(): Promise<void> {
-    this.connectionPool.clear();
-    this.isInitialized = false;
-    console.log('🧹 MCP resources cleaned up');
-  }
-
-  // Helper methods
-  private delay(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  private extractDomain(url: string): string {
-    try {
-      return new URL(url).hostname;
-    } catch {
-      return 'unknown';
+      console.error(`❌ [Web Unlocker] Generic scrape failed:`, error);
+      throw error;
     }
   }
 }
 
-// Singleton instance for the application
-export const mcpConfig = new BrightDataMCPConfig();
+// Factory function to create Web Unlocker client
+export function createWebUnlocker(): BrightDataWebUnlocker {
+  const config: BrightDataConfig = {
+    apiToken: process.env.BRIGHT_DATA_API_KEY || '',
+    zone: process.env.BRIGHT_DATA_WEB_UNLOCKER_ZONE || 'web_unlocker1',
+    timeout: 30000,
+  };
 
-// Convenience functions for common operations
-export const MCPTools = {
-  /**
-   * Quick Instagram profile scraping
-   */
-  async scrapeInstagram(username: string): Promise<MCPResponse<InstagramProfileData>> {
-    return mcpConfig.scrapeInstagramProfile(username);
-  },
+  if (!config.apiToken) {
+    console.warn('⚠️ BRIGHT_DATA_API_KEY not found - Web Unlocker will not work');
+    throw new Error('BRIGHT_DATA_API_KEY environment variable is required');
+  }
 
-  /**
-   * Quick web content unlocking
-   */
-  async unlockUrl(url: string): Promise<MCPResponse<WebUnlockerData>> {
-    return mcpConfig.unlockWebContent(url);
-  },
+  console.log(`🔧 [Web Unlocker] Initialized with zone: ${config.zone}`);
+  return new BrightDataWebUnlocker(config);
+}
 
-  /**
-   * Quick SERP search
-   */
-  async search(query: string, engine: string = 'google'): Promise<MCPResponse<SERPData>> {
-    return mcpConfig.searchSERP(query, engine);
-  },
-
-  /**
-   * Quick health check
-   */
-  async isHealthy(): Promise<boolean> {
-    const result = await mcpConfig.healthCheck();
-    return result.success;
-  },
-}; 
+// Legacy export for compatibility
+export function createMCPClient() {
+  try {
+    return createWebUnlocker();
+  } catch (error) {
+    console.warn('⚠️ Web Unlocker initialization failed, using fallback');
+    return null;
+  }
+} 

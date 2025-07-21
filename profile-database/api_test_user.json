@@ -1,0 +1,129 @@
+{
+  "username": "api_test_user",
+  "analyzedAt": "2025-07-21T10:12:14.447Z",
+  "lastUpdated": "2025-07-21T10:12:14.447Z",
+  "profile": {
+    "bio": "Mock bio for api_test_user - Creative individual passionate about sharing life's authentic moments. Based in Miami",
+    "followers": 36396,
+    "following": 1475,
+    "posts": [
+      {
+        "caption": "Just wrapped up an amazing project! Sometimes the best inspiration comes from unexpected places ✨",
+        "likes": 4783,
+        "comments": [
+          {
+            "text": "This is so inspiring! 🔥",
+            "author": "creative_friend",
+            "timestamp": "2025-07-21T10:11:54.554Z"
+          },
+          {
+            "text": "Love your perspective!",
+            "author": "art_enthusiast",
+            "timestamp": "2025-07-21T10:11:54.554Z"
+          }
+        ],
+        "timestamp": "2025-07-20T10:11:54.554Z"
+      },
+      {
+        "caption": "Sunday mood: coffee, creativity, and good vibes ☕️ What's everyone up to this weekend?",
+        "likes": 829,
+        "comments": [
+          {
+            "text": "Perfect Sunday vibes!",
+            "author": "weekend_warrior",
+            "timestamp": "2025-07-21T10:11:54.554Z"
+          }
+        ],
+        "timestamp": "2025-07-18T10:11:54.554Z"
+      }
+    ],
+    "isVerified": false,
+    "isPrivate": false
+  },
+  "analysis": {
+    "personality_traits": [
+      "Creative",
+      "Passionate",
+      "Inspired",
+      "Authentic",
+      "Social"
+    ],
+    "communication_style": {
+      "type": "Inspiring",
+      "description": "The user communicates in an inspirational and positive manner, often sharing personal achievements and positive experiences. They use a friendly and engaging tone, inviting followers to interact.",
+      "tone": "Positive and Encouraging",
+      "emoji_usage": "medium"
+    },
+    "interests": [
+      "Creativity",
+      "Authentic Living",
+      "Inspiration",
+      "Socializing",
+      "Coffee"
+    ],
+    "values": [
+      "Authenticity",
+      "Passion",
+      "Creativity",
+      "Inspiration"
+    ],
+    "content_themes": [
+      "Creative Projects",
+      "Authentic Moments",
+      "Weekend Vibes"
+    ],
+    "posting_patterns": {
+      "frequency": "regular",
+      "best_performing_content": "lifestyle posts",
+      "engagement_style": "interactive"
+    },
+    "demographic_indicators": {
+      "likely_age_range": "25-35",
+      "location_hints": [],
+      "profession_hints": []
+    }
+  },
+  "visual_data": {
+    "profile_image": {
+      "description": "Professional headshot with warm lighting",
+      "style_analysis": "Clean, modern aesthetic"
+    },
+    "post_images": [],
+    "visual_consistency": {
+      "filter_style": "natural",
+      "color_scheme": "warm tones",
+      "aesthetic_score": 0.8
+    }
+  },
+  "chat_context": {
+    "personality_summary": "api_test_user is a creative and passionate individual who values authenticity and inspiration. They communicate in an inspiring and positive manner, often sharing personal achievements and positive experiences. Their interests include creativity, authentic living, and coffee. They post infrequently, but their posts receive high engagement, particularly those about personal achievements and creative projects. Based in Miami, they are likely a creative professional or social media influencer in the age range of 20-35.",
+    "speaking_style_examples": [
+      "Just wrapped up an amazing project! Sometimes the ...",
+      "Sunday mood: coffee, creativity, and good vibes ☕️..."
+    ],
+    "key_topics": [
+      "Creativity",
+      "Authentic Living",
+      "Inspiration",
+      "Socializing",
+      "Coffee",
+      "Creative Projects",
+      "Authentic Moments",
+      "Weekend Vibes"
+    ],
+    "response_patterns": [
+      "Enthusiastic and engaging",
+      "Uses emojis to express emotions"
+    ],
+    "conversation_starters": [
+      "What's the highlight of your day?",
+      "Share something that made you smile today!"
+    ]
+  },
+  "metadata": {
+    "data_source": "fallback_enhanced",
+    "scraping_success": false,
+    "analysis_confidence": 0.7,
+    "total_chat_messages": 0
+  }
+}

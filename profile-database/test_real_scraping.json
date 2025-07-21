@@ -1,0 +1,129 @@
+{
+  "username": "test_real_scraping",
+  "analyzedAt": "2025-07-21T10:07:20.248Z",
+  "lastUpdated": "2025-07-21T10:07:20.248Z",
+  "profile": {
+    "bio": "Mock bio for test_real_scraping - Creative individual passionate about sharing life's authentic moments. Based in New York",
+    "followers": 50711,
+    "following": 642,
+    "posts": [
+      {
+        "caption": "Just wrapped up an amazing project! Sometimes the best inspiration comes from unexpected places ✨",
+        "likes": 1108,
+        "comments": [
+          {
+            "text": "This is so inspiring! 🔥",
+            "author": "creative_friend",
+            "timestamp": "2025-07-21T10:07:04.652Z"
+          },
+          {
+            "text": "Love your perspective!",
+            "author": "art_enthusiast",
+            "timestamp": "2025-07-21T10:07:04.652Z"
+          }
+        ],
+        "timestamp": "2025-07-20T10:07:04.652Z"
+      },
+      {
+        "caption": "Sunday mood: coffee, creativity, and good vibes ☕️ What's everyone up to this weekend?",
+        "likes": 1055,
+        "comments": [
+          {
+            "text": "Perfect Sunday vibes!",
+            "author": "weekend_warrior",
+            "timestamp": "2025-07-21T10:07:04.652Z"
+          }
+        ],
+        "timestamp": "2025-07-18T10:07:04.652Z"
+      }
+    ],
+    "isVerified": false,
+    "isPrivate": false
+  },
+  "analysis": {
+    "personality_traits": [
+      "Creative",
+      "Passionate",
+      "Authentic",
+      "Inspirational",
+      "Social"
+    ],
+    "communication_style": {
+      "type": "Informal",
+      "description": "The user communicates in an informal, friendly, and engaging manner. They use casual language and emojis to express their thoughts and feelings, creating a sense of relatability and approachability.",
+      "tone": "Positive",
+      "emoji_usage": "medium"
+    },
+    "interests": [
+      "Creativity",
+      "Authentic Living",
+      "Inspiration",
+      "Socializing",
+      "Coffee"
+    ],
+    "values": [
+      "Authenticity",
+      "Creativity",
+      "Inspiration",
+      "Social Connections"
+    ],
+    "content_themes": [
+      "Creativity",
+      "Inspiration",
+      "Daily Life"
+    ],
+    "posting_patterns": {
+      "frequency": "regular",
+      "best_performing_content": "lifestyle posts",
+      "engagement_style": "interactive"
+    },
+    "demographic_indicators": {
+      "likely_age_range": "25-35",
+      "location_hints": [],
+      "profession_hints": []
+    }
+  },
+  "visual_data": {
+    "profile_image": {
+      "description": "Professional headshot with warm lighting",
+      "style_analysis": "Clean, modern aesthetic"
+    },
+    "post_images": [],
+    "visual_consistency": {
+      "filter_style": "natural",
+      "color_scheme": "warm tones",
+      "aesthetic_score": 0.8
+    }
+  },
+  "chat_context": {
+    "personality_summary": "The user, test_real_scraping, is a creative and passionate individual who values authenticity and inspiration. They communicate in an informal, friendly manner, often using positive language and emojis. Their interests include creativity, authentic living, and socializing. They engage their audience by sharing personal experiences and asking questions. Likely based in New York, they fall within the age range of 20-35 and could be a creative professional or a social media influencer.",
+    "speaking_style_examples": [
+      "Just wrapped up an amazing project! Sometimes the ...",
+      "Sunday mood: coffee, creativity, and good vibes ☕️..."
+    ],
+    "key_topics": [
+      "Creativity",
+      "Authentic Living",
+      "Inspiration",
+      "Socializing",
+      "Coffee",
+      "Creativity",
+      "Inspiration",
+      "Daily Life"
+    ],
+    "response_patterns": [
+      "Enthusiastic and engaging",
+      "Uses emojis to express emotions"
+    ],
+    "conversation_starters": [
+      "What's the highlight of your day?",
+      "Share something that made you smile today!"
+    ]
+  },
+  "metadata": {
+    "data_source": "fallback_enhanced",
+    "scraping_success": false,
+    "analysis_confidence": 0.7,
+    "total_chat_messages": 0
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "username": "debug_test",
+  "analyzedAt": "2025-07-21T10:09:56.958Z",
+  "lastUpdated": "2025-07-21T10:09:56.958Z",
+  "profile": {
+    "bio": "Mock bio for debug_test - Creative individual passionate about sharing life's authentic moments. Based in Seattle",
+    "followers": 40863,
+    "following": 1340,
+    "posts": [
+      {
+        "caption": "Just wrapped up an amazing project! Sometimes the best inspiration comes from unexpected places ✨",
+        "likes": 2274,
+        "comments": [
+          {
+            "text": "This is so inspiring! 🔥",
+            "author": "creative_friend",
+            "timestamp": "2025-07-21T10:09:36.186Z"
+          },
+          {
+            "text": "Love your perspective!",
+            "author": "art_enthusiast",
+            "timestamp": "2025-07-21T10:09:36.186Z"
+          }
+        ],
+        "timestamp": "2025-07-20T10:09:36.186Z"
+      },
+      {
+        "caption": "Sunday mood: coffee, creativity, and good vibes ☕️ What's everyone up to this weekend?",
+        "likes": 2549,
+        "comments": [
+          {
+            "text": "Perfect Sunday vibes!",
+            "author": "weekend_warrior",
+            "timestamp": "2025-07-21T10:09:36.186Z"
+          }
+        ],
+        "timestamp": "2025-07-18T10:09:36.186Z"
+      }
+    ],
+    "isVerified": false,
+    "isPrivate": false
+  },
+  "analysis": {
+    "personality_traits": [
+      "creative",
+      "passionate",
+      "inspirational",
+      "authentic",
+      "social"
+    ],
+    "communication_style": {
+      "type": "informal",
+      "description": "The user communicates in a casual and friendly tone, often sharing personal experiences and asking questions to engage with their audience.",
+      "tone": "positive",
+      "emoji_usage": "medium"
+    },
+    "interests": [
+      "creativity",
+      "inspiration",
+      "authenticity",
+      "socializing",
+      "coffee"
+    ],
+    "values": [
+      "creativity",
+      "authenticity",
+      "inspiration",
+      "community"
+    ],
+    "content_themes": [
+      "creativity",
+      "daily life",
+      "weekend activities"
+    ],
+    "posting_patterns": {
+      "frequency": "regular",
+      "best_performing_content": "lifestyle posts",
+      "engagement_style": "interactive"
+    },
+    "demographic_indicators": {
+      "likely_age_range": "25-35",
+      "location_hints": [],
+      "profession_hints": []
+    }
+  },
+  "visual_data": {
+    "profile_image": {
+      "description": "Professional headshot with warm lighting",
+      "style_analysis": "Clean, modern aesthetic"
+    },
+    "post_images": [],
+    "visual_consistency": {
+      "filter_style": "natural",
+      "color_scheme": "warm tones",
+      "aesthetic_score": 0.8
+    }
+  },
+  "chat_context": {
+    "personality_summary": "Debug_test is a creative and passionate individual who values authenticity and inspiration. They communicate in an informal and positive tone, often engaging their audience with personal experiences and questions. Their interests include creativity, authenticity, and socializing. Despite their low posting frequency, their posts perform well, especially those that share personal experiences and creative endeavors. Demographically, they are likely aged between 20-35, based in Seattle, and work in the creative industry or as a social media influencer.",
+    "speaking_style_examples": [
+      "Always inspired by new ideas and projects",
+      "Just wrapped up an amazing project! Sometimes the ...",
+      "Sunday mood: coffee, creativity, and good vibes ☕️..."
+    ],
+    "key_topics": [
+      "creativity",
+      "inspiration",
+      "authenticity",
+      "socializing",
+      "coffee",
+      "creativity",
+      "daily life",
+      "weekend activities"
+    ],
+    "response_patterns": [
+      "Enthusiastic and engaging",
+      "Uses emojis to express emotions",
+      "Shares personal experiences openly",
+      "Asks questions to engage others"
+    ],
+    "conversation_starters": [
+      "What's inspiring your creativity lately?",
+      "What's the highlight of your day?",
+      "Share something that made you smile today!"
+    ]
+  },
+  "metadata": {
+    "data_source": "fallback_enhanced",
+    "scraping_success": false,
+    "analysis_confidence": 0.7,
+    "total_chat_messages": 0
+  }
+}

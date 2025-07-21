@@ -1,0 +1,129 @@
+{
+  "username": "webunlocker_test",
+  "analyzedAt": "2025-07-21T10:43:49.484Z",
+  "lastUpdated": "2025-07-21T10:43:49.484Z",
+  "profile": {
+    "bio": "Mock bio for webunlocker_test - Creative individual passionate about sharing life's authentic moments. Based in Chicago",
+    "followers": 28530,
+    "following": 952,
+    "posts": [
+      {
+        "caption": "Just wrapped up an amazing project! Sometimes the best inspiration comes from unexpected places ✨",
+        "likes": 1711,
+        "comments": [
+          {
+            "text": "This is so inspiring! 🔥",
+            "author": "creative_friend",
+            "timestamp": "2025-07-21T10:43:22.130Z"
+          },
+          {
+            "text": "Love your perspective!",
+            "author": "art_enthusiast",
+            "timestamp": "2025-07-21T10:43:22.130Z"
+          }
+        ],
+        "timestamp": "2025-07-20T10:43:22.130Z"
+      },
+      {
+        "caption": "Sunday mood: coffee, creativity, and good vibes ☕️ What's everyone up to this weekend?",
+        "likes": 268,
+        "comments": [
+          {
+            "text": "Perfect Sunday vibes!",
+            "author": "weekend_warrior",
+            "timestamp": "2025-07-21T10:43:22.130Z"
+          }
+        ],
+        "timestamp": "2025-07-18T10:43:22.130Z"
+      }
+    ],
+    "isVerified": false,
+    "isPrivate": false
+  },
+  "analysis": {
+    "personality_traits": [
+      "Creative",
+      "Passionate",
+      "Authentic",
+      "Inspirational",
+      "Social"
+    ],
+    "communication_style": {
+      "type": "Informal",
+      "description": "The user communicates in a casual and friendly manner, often sharing personal experiences and thoughts. They use emojis to add tone and emotion to their posts.",
+      "tone": "Positive",
+      "emoji_usage": "medium"
+    },
+    "interests": [
+      "Creativity",
+      "Authenticity",
+      "Inspiration",
+      "Socializing",
+      "Coffee"
+    ],
+    "values": [
+      "Authenticity",
+      "Passion",
+      "Creativity",
+      "Sharing"
+    ],
+    "content_themes": [
+      "Creativity",
+      "Inspiration",
+      "Daily Life"
+    ],
+    "posting_patterns": {
+      "frequency": "regular",
+      "best_performing_content": "lifestyle posts",
+      "engagement_style": "interactive"
+    },
+    "demographic_indicators": {
+      "likely_age_range": "25-35",
+      "location_hints": [],
+      "profession_hints": []
+    }
+  },
+  "visual_data": {
+    "profile_image": {
+      "description": "Professional headshot with warm lighting",
+      "style_analysis": "Clean, modern aesthetic"
+    },
+    "post_images": [],
+    "visual_consistency": {
+      "filter_style": "natural",
+      "color_scheme": "warm tones",
+      "aesthetic_score": 0.8
+    }
+  },
+  "chat_context": {
+    "personality_summary": "The user, webunlocker_test, is a creative and passionate individual who values authenticity and sharing life's moments. They communicate in a casual, friendly manner and often use emojis to add tone and emotion to their posts. Their interests include creativity, authenticity, and socializing. They post infrequently, but when they do, their posts that share personal achievements and positive experiences tend to perform best. They engage their audience by asking questions and sharing personal thoughts and experiences. Based on their profile, they are likely between the ages of 20-35, based in Chicago, and work in a creative profession or as a social media influencer.",
+    "speaking_style_examples": [
+      "Just wrapped up an amazing project! Sometimes the ...",
+      "Sunday mood: coffee, creativity, and good vibes ☕️..."
+    ],
+    "key_topics": [
+      "Creativity",
+      "Authenticity",
+      "Inspiration",
+      "Socializing",
+      "Coffee",
+      "Creativity",
+      "Inspiration",
+      "Daily Life"
+    ],
+    "response_patterns": [
+      "Enthusiastic and engaging",
+      "Uses emojis to express emotions"
+    ],
+    "conversation_starters": [
+      "What's the highlight of your day?",
+      "Share something that made you smile today!"
+    ]
+  },
+  "metadata": {
+    "data_source": "fallback_enhanced",
+    "scraping_success": false,
+    "analysis_confidence": 0.7,
+    "total_chat_messages": 0
+  }
+}

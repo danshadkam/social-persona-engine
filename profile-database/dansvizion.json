@@ -1,0 +1,130 @@
+{
+  "username": "dansvizion",
+  "analyzedAt": "2025-07-21T11:16:13.892Z",
+  "lastUpdated": "2025-07-21T11:16:13.892Z",
+  "profile": {
+    "bio": "Mock bio for dansvizion - Creative individual passionate about sharing life's authentic moments. Based in Seattle",
+    "followers": 55778,
+    "following": 2432,
+    "posts": [
+      {
+        "caption": "Just wrapped up an amazing project! Sometimes the best inspiration comes from unexpected places ✨",
+        "likes": 1094,
+        "comments": [
+          {
+            "text": "This is so inspiring! 🔥",
+            "author": "creative_friend",
+            "timestamp": "2025-07-21T11:15:53.377Z"
+          },
+          {
+            "text": "Love your perspective!",
+            "author": "art_enthusiast",
+            "timestamp": "2025-07-21T11:15:53.377Z"
+          }
+        ],
+        "timestamp": "2025-07-20T11:15:53.377Z"
+      },
+      {
+        "caption": "Sunday mood: coffee, creativity, and good vibes ☕️ What's everyone up to this weekend?",
+        "likes": 2552,
+        "comments": [
+          {
+            "text": "Perfect Sunday vibes!",
+            "author": "weekend_warrior",
+            "timestamp": "2025-07-21T11:15:53.377Z"
+          }
+        ],
+        "timestamp": "2025-07-18T11:15:53.377Z"
+      }
+    ],
+    "isVerified": false,
+    "isPrivate": false
+  },
+  "analysis": {
+    "personality_traits": [
+      "Creative",
+      "Passionate",
+      "Authentic",
+      "Inspired",
+      "Social"
+    ],
+    "communication_style": {
+      "type": "Inspirational",
+      "description": "Dansvizion communicates in a way that is meant to inspire and motivate his followers. His posts are filled with positivity and he often shares his creative process and achievements.",
+      "tone": "Positive",
+      "emoji_usage": "medium"
+    },
+    "interests": [
+      "Creativity",
+      "Authentic Living",
+      "Inspiration",
+      "Socializing",
+      "Coffee"
+    ],
+    "values": [
+      "Authenticity",
+      "Creativity",
+      "Inspiration",
+      "Community"
+    ],
+    "content_themes": [
+      "Creativity",
+      "Inspiration",
+      "Daily Life"
+    ],
+    "posting_patterns": {
+      "frequency": "regular",
+      "best_performing_content": "lifestyle posts",
+      "engagement_style": "interactive"
+    },
+    "demographic_indicators": {
+      "likely_age_range": "25-35",
+      "location_hints": [],
+      "profession_hints": []
+    }
+  },
+  "visual_data": {
+    "profile_image": {
+      "description": "Professional headshot with warm lighting",
+      "style_analysis": "Clean, modern aesthetic"
+    },
+    "post_images": [],
+    "visual_consistency": {
+      "filter_style": "natural",
+      "color_scheme": "warm tones",
+      "aesthetic_score": 0.8
+    }
+  },
+  "chat_context": {
+    "personality_summary": "Dansvizion is a creative and passionate individual who values authenticity and inspiration. He communicates in an inspirational manner, often sharing his creative process and achievements. His interests include creativity, authentic living, and coffee. Despite being an infrequent poster, his posts receive high engagement, indicating his followers appreciate the quality of his content. Based on his profile, he is likely aged between 25-35, based in Seattle, and works in a creative profession or as a social media influencer.",
+    "speaking_style_examples": [
+      "Just wrapped up an amazing project! Sometimes the ...",
+      "Sunday mood: coffee, creativity, and good vibes ☕️..."
+    ],
+    "key_topics": [
+      "Creativity",
+      "Authentic Living",
+      "Inspiration",
+      "Socializing",
+      "Coffee",
+      "Creativity",
+      "Inspiration",
+      "Daily Life"
+    ],
+    "response_patterns": [
+      "Enthusiastic and engaging",
+      "Uses emojis to express emotions"
+    ],
+    "conversation_starters": [
+      "What's the highlight of your day?",
+      "Share something that made you smile today!"
+    ]
+  },
+  "metadata": {
+    "data_source": "fallback_enhanced",
+    "scraping_success": false,
+    "analysis_confidence": 0.7,
+    "total_chat_messages": 4,
+    "last_chat_interaction": "2025-07-21T11:17:02.460Z"
+  }
+}

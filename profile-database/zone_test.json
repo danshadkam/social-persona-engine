@@ -1,0 +1,129 @@
+{
+  "username": "zone_test",
+  "analyzedAt": "2025-07-21T10:46:48.453Z",
+  "lastUpdated": "2025-07-21T10:46:48.453Z",
+  "profile": {
+    "bio": "Mock bio for zone_test - Creative individual passionate about sharing life's authentic moments. Based in Seattle",
+    "followers": 28002,
+    "following": 2383,
+    "posts": [
+      {
+        "caption": "Just wrapped up an amazing project! Sometimes the best inspiration comes from unexpected places ✨",
+        "likes": 1466,
+        "comments": [
+          {
+            "text": "This is so inspiring! 🔥",
+            "author": "creative_friend",
+            "timestamp": "2025-07-21T10:46:30.668Z"
+          },
+          {
+            "text": "Love your perspective!",
+            "author": "art_enthusiast",
+            "timestamp": "2025-07-21T10:46:30.668Z"
+          }
+        ],
+        "timestamp": "2025-07-20T10:46:30.668Z"
+      },
+      {
+        "caption": "Sunday mood: coffee, creativity, and good vibes ☕️ What's everyone up to this weekend?",
+        "likes": 2312,
+        "comments": [
+          {
+            "text": "Perfect Sunday vibes!",
+            "author": "weekend_warrior",
+            "timestamp": "2025-07-21T10:46:30.668Z"
+          }
+        ],
+        "timestamp": "2025-07-18T10:46:30.668Z"
+      }
+    ],
+    "isVerified": false,
+    "isPrivate": false
+  },
+  "analysis": {
+    "personality_traits": [
+      "Creative",
+      "Passionate",
+      "Authentic",
+      "Inspired",
+      "Social"
+    ],
+    "communication_style": {
+      "type": "Informal",
+      "description": "The user communicates in an informal and friendly manner, often sharing personal experiences and asking questions to engage with followers.",
+      "tone": "Positive",
+      "emoji_usage": "medium"
+    },
+    "interests": [
+      "Creativity",
+      "Authenticity",
+      "Inspiration",
+      "Socializing",
+      "Coffee"
+    ],
+    "values": [
+      "Authenticity",
+      "Creativity",
+      "Inspiration",
+      "Community"
+    ],
+    "content_themes": [
+      "Creativity",
+      "Inspiration",
+      "Lifestyle"
+    ],
+    "posting_patterns": {
+      "frequency": "regular",
+      "best_performing_content": "lifestyle posts",
+      "engagement_style": "interactive"
+    },
+    "demographic_indicators": {
+      "likely_age_range": "25-35",
+      "location_hints": [],
+      "profession_hints": []
+    }
+  },
+  "visual_data": {
+    "profile_image": {
+      "description": "Professional headshot with warm lighting",
+      "style_analysis": "Clean, modern aesthetic"
+    },
+    "post_images": [],
+    "visual_consistency": {
+      "filter_style": "natural",
+      "color_scheme": "warm tones",
+      "aesthetic_score": 0.8
+    }
+  },
+  "chat_context": {
+    "personality_summary": "The user, zone_test, is a creative and passionate individual who values authenticity and community. They communicate in an informal and friendly manner, often sharing personal experiences and engaging with their audience. Their interests include creativity, authenticity, inspiration, socializing, and coffee. Despite their low posting frequency, their content is well-received, suggesting that they are impactful and influential in their community.",
+    "speaking_style_examples": [
+      "Just wrapped up an amazing project! Sometimes the ...",
+      "Sunday mood: coffee, creativity, and good vibes ☕️..."
+    ],
+    "key_topics": [
+      "Creativity",
+      "Authenticity",
+      "Inspiration",
+      "Socializing",
+      "Coffee",
+      "Creativity",
+      "Inspiration",
+      "Lifestyle"
+    ],
+    "response_patterns": [
+      "Enthusiastic and engaging",
+      "Uses emojis to express emotions"
+    ],
+    "conversation_starters": [
+      "What's the highlight of your day?",
+      "Share something that made you smile today!"
+    ]
+  },
+  "metadata": {
+    "data_source": "fallback_enhanced",
+    "scraping_success": false,
+    "analysis_confidence": 0.7,
+    "total_chat_messages": 0
+  }
+}

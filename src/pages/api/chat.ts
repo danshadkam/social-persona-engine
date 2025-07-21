@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { enhancedMemory, ConversationMessage } from '@/lib/memory-enhanced';
+import { profileDatabase } from '@/lib/profile-database';
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
@@ -18,70 +19,75 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    // IMMEDIATE FIX - Force reload memory on every chat request
-    try {
-      await enhancedMemory.forceReload();
-      console.log('🔄 Memory force reloaded for chat request');
-    } catch (reloadError) {
-      console.warn('⚠️ Memory reload failed:', reloadError);
-    }
-
     console.log(`💬 Chat request from user to @${username}: "${message.substring(0, 50)}..."`);
     
-    // Enhanced profile retrieval with auto-recovery
-    let profile = await enhancedMemory.getProfile(username);
+    // Try to get profile from new database system first
+    let databaseProfile = await profileDatabase.getProfile(username);
     
-    // Auto-recovery: If profile not found, try multiple recovery methods
-    if (!profile) {
-      console.log(`🔄 Profile ${username} not found, attempting auto-recovery...`);
+    // If not found in database, try auto-analysis
+    if (!databaseProfile) {
+      console.log(`🔄 Profile ${username} not found in database, triggering auto-analysis...`);
       
-      // Method 1: Force reload from file
       try {
-        await enhancedMemory.forceReload();
-        profile = await enhancedMemory.getProfile(username);
-        if (profile) {
-          console.log(`✅ Profile ${username} recovered via force reload`);
-        }
-      } catch (reloadError) {
-        console.error('❌ Force reload failed:', reloadError);
-      }
-      
-      // Method 2: Auto re-analysis if still not found
-      if (!profile) {
-        console.log(`🔄 Attempting auto re-analysis for ${username}...`);
-        try {
-          const analyzeResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/analyze`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username })
+        // Call analyze API to create the profile
+        const analyzeResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/analyze`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username })
+        });
+        
+        if (analyzeResponse.ok) {
+          const analyzeData = await analyzeResponse.json();
+          console.log(`✅ Auto-analysis successful for ${username}:`, {
+            success: analyzeData.success,
+            cached: analyzeData.cached,
+            hasProfile: !!analyzeData.profile
           });
           
-          if (analyzeResponse.ok) {
-            console.log(`✅ Auto re-analysis successful for ${username}`);
-            profile = await enhancedMemory.getProfile(username);
+          // Wait a moment for the database save to complete
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          databaseProfile = await profileDatabase.getProfile(username);
+          
+          if (databaseProfile) {
+            console.log(`✅ Profile successfully retrieved from database for ${username}`);
+          } else {
+            console.warn(`⚠️ Profile not found in database after analysis for ${username}`);
           }
-        } catch (autoAnalyzeError) {
-          console.error('❌ Auto re-analysis failed:', autoAnalyzeError);
+        } else {
+          const errorData = await analyzeResponse.json();
+          console.error('❌ Auto-analysis HTTP error:', {
+            status: analyzeResponse.status,
+            statusText: analyzeResponse.statusText,
+            error: errorData
+          });
         }
+      } catch (autoAnalyzeError) {
+        console.error('❌ Auto-analysis request failed:', autoAnalyzeError);
       }
     }
     
-    // If still no profile after all recovery attempts
-    if (!profile) {
-      const memoryStats = enhancedMemory.getMemoryStats();
-      console.log(`❌ Profile ${username} still not found after all recovery attempts`);
-      console.log(`🔍 Available profiles: ${memoryStats.keys.join(', ')}`);
+    // If still no profile, return helpful error
+    if (!databaseProfile) {
+      console.log(`❌ Profile ${username} still not found after auto-analysis attempt`);
+      
+      // Get available profiles for suggestion
+      const allProfiles = await profileDatabase.getAllProfiles();
+      const availableUsernames = allProfiles.map(p => p.username);
       
       return res.status(400).json({ 
-        error: 'Profile analysis not found. Please analyze the profile first.',
-        suggestion: 'Click the "Analyze" tab to analyze the Instagram profile before chatting.',
-        autoRecoveryAttempted: true,
-        availableProfiles: memoryStats.keys,
+        error: `Profile @${username} not found. Please analyze the profile first.`,
+        suggestion: 'Go to the "Analyze" tab and enter the Instagram username to analyze the profile before chatting.',
+        autoAnalysisAttempted: true,
+        availableProfiles: availableUsernames.slice(0, 5), // Show first 5 as examples
         requestedProfile: username
       });
     }
 
     console.log(`✅ Profile found for ${username}, proceeding with chat...`);
+    
+    // Get conversation history from legacy memory system
+    const profile = await enhancedMemory.getProfile(username);
+    const conversation = profile?.conversationHistory || [];
     
     // Add user message to conversation history
     const userMessage: ConversationMessage = {
@@ -90,83 +96,110 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       timestamp: new Date().toISOString(),
     };
     
-    await enhancedMemory.addConversationMessage(username, userMessage);
+    // Update conversation
+    conversation.push(userMessage);
+    console.log(`💬 Message added to conversation for ${username} (${conversation.length} total messages)`);
+    
+    // Create LLM-optimized context using the database profile
+    const llmContext = profileDatabase.getLLMChatContext(databaseProfile);
+    
+    // Enhanced conversation context with recent messages
+    const recentMessages = conversation.slice(-6); // Last 6 messages for context
+    const conversationContext = recentMessages
+      .map((msg: ConversationMessage) => `${msg.role}: ${msg.content}`)
+      .join('\n');
+    
+    // Create comprehensive system prompt for natural persona chat
+    const systemPrompt = `You are roleplaying as the Instagram user described below. Respond naturally as this person would, maintaining their personality, communication style, and interests throughout the conversation.
 
-    // Get relevant context using embeddings
-    const contextualPrompt = await enhancedMemory.getRelevantContext(username, message);
-    console.log(`🧠 Retrieved contextual prompt for @${username} (${contextualPrompt.length} chars)`);
+${llmContext}
 
-    // Generate response using enhanced context
-    const response = await generateEnhancedChatResponse(message, contextualPrompt);
-    console.log(`✅ Generated response for @${username}: "${response.substring(0, 50)}..."`);
+CONVERSATION CONTEXT:
+${conversationContext}
 
-    // Add assistant response to conversation history
-    const assistantMessage: ConversationMessage = {
+INSTRUCTIONS:
+- Respond as this Instagram user would, using their personality traits and communication style
+- Reference your interests, values, and content themes naturally
+- Use the same tone and emoji usage patterns as described
+- Keep responses conversational and engaging (2-4 sentences)
+- Be authentic to this person's character
+- Ask follow-up questions when appropriate
+- Share insights or experiences that align with your personality
+
+Remember: You ARE this person. Respond in first person as if you're genuinely them.`;
+
+    // Generate response using GPT-4
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4',
+      messages: [
+        {
+          role: 'system',
+          content: systemPrompt
+        },
+        {
+          role: 'user',
+          content: message
+        }
+      ],
+      temperature: 0.7, // More creative for natural conversation
+      max_tokens: 300,
+    });
+
+    const response = completion.choices[0].message.content || 'I appreciate you reaching out! How can I help you today?';
+    
+    // Add AI response to conversation
+    const aiMessage: ConversationMessage = {
       role: 'assistant',
       content: response,
       timestamp: new Date().toISOString(),
     };
     
-    await enhancedMemory.addConversationMessage(username, assistantMessage);
-
-    res.status(200).json({ 
+    conversation.push(aiMessage);
+    
+    // Save updated conversation to memory system
+    await enhancedMemory.addConversationMessage(username, userMessage);
+    await enhancedMemory.addConversationMessage(username, aiMessage);
+    console.log(`💬 Message added to conversation for ${username} (${conversation.length} total messages)`);
+    
+    // Update database chat metadata
+    await profileDatabase.updateChatMetadata(username, conversation.length);
+    
+    console.log(`✅ Generated response for @${username}: "${response.substring(0, 50)}..."`);
+    
+    return res.status(200).json({
+      success: true,
       response,
       metadata: {
-        conversationLength: profile.conversationHistory.length + 2, // +2 for the new messages
-        dataSource: profile.realDataUsed ? 'real_instagram_data' : 'fallback_data',
+        conversationLength: conversation.length,
+        dataSource: databaseProfile.metadata.data_source,
+        analysisConfidence: databaseProfile.metadata.analysis_confidence,
         timestamp: new Date().toISOString(),
+        profileTraits: databaseProfile.analysis.personality_traits,
+        keyTopics: databaseProfile.chat_context.key_topics
       }
     });
 
-  } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-    console.error('❌ Error in chat endpoint:', errorMessage);
-    
-    res.status(500).json({ 
-      error: 'Failed to generate chat response',
-      details: errorMessage,
-      fallbackResponse: "Hey! I'm having some technical difficulties right now, but I'd love to chat more. Can you try asking me something else?"
-    });
-  }
-}
-
-async function generateEnhancedChatResponse(
-  userMessage: string,
-  contextualPrompt: string
-): Promise<string> {
-  try {
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [
-        {
-          role: 'system',
-          content: contextualPrompt,
-        },
-        {
-          role: 'user',
-          content: userMessage,
-        },
-      ],
-      temperature: 0.8,
-      max_tokens: 300,
-    });
-
-    const content = response.choices[0]?.message?.content;
-    if (!content) {
-      throw new Error('No response from OpenAI');
-    }
-
-    return content;
   } catch (error) {
-    console.error('Error generating enhanced chat response:', error);
+    console.error('❌ Chat error:', error);
     
-    // Intelligent fallback based on user message content
-    if (userMessage.toLowerCase().includes('hotel') || userMessage.toLowerCase().includes('travel')) {
-      return "I love talking about travel! I'm always planning my next adventure. What's your favorite destination?";
-    } else if (userMessage.toLowerCase().includes('photo') || userMessage.toLowerCase().includes('picture')) {
-      return "Photography is such a passion of mine! I love capturing moments that tell a story. What kind of photos do you enjoy taking?";
-    } else {
-      return "That's such an interesting question! I'd love to hear more about what you're thinking. Tell me what's on your mind! 😊";
-    }
+    // Try to get basic profile info for error context
+    let errorContext = {};
+    try {
+      const profile = await profileDatabase.getProfile(username);
+      if (profile) {
+        errorContext = {
+          hasProfile: true,
+          dataSource: profile.metadata.data_source,
+          lastAnalyzed: profile.analyzedAt
+        };
+      }
+    } catch {}
+    
+    return res.status(500).json({ 
+      error: 'Failed to generate chat response', 
+      details: error instanceof Error ? error.message : 'Unknown error',
+      context: errorContext,
+      suggestion: 'Please try analyzing the profile again or contact support if the issue persists.'
+    });
   }
 } 

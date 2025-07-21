@@ -53,7 +53,15 @@ export default function Home() {
       }
 
       const data = await response.json();
-      setAnalysis(data);
+      // Extract analysis data from new API response format
+      const analysisData = {
+        traits: data.analysis?.personality_traits || data.analysis?.traits || [],
+        communication_style: data.analysis?.communication_style?.description || data.analysis?.communication_style || 'Warm and engaging communication style',
+        interests: data.analysis?.interests || [],
+        values: data.analysis?.values || [],
+        summary: data.analysis?.summary || data.chat_context?.personality_summary || `Analysis for ${username} completed successfully.`
+      };
+      setAnalysis(analysisData);
       setActiveTab('results');
     } catch (error) {
       console.error('Error analyzing profile:', error);
@@ -321,7 +329,7 @@ export default function Home() {
                           </CardHeader>
                           <CardContent>
                             <div className="flex flex-wrap gap-2">
-                              {analysis.traits.map((trait, index) => (
+                              {((analysis as any).personality_traits || (analysis as any).traits || []).map((trait: string, index: number) => (
                                 <Badge key={index} variant="secondary" className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
                                   {trait}
                                 </Badge>
@@ -336,7 +344,7 @@ export default function Home() {
                           </CardHeader>
                           <CardContent>
                             <div className="flex flex-wrap gap-2">
-                              {analysis.interests.map((interest, index) => (
+                              {((analysis as any).interests || []).map((interest: string, index: number) => (
                                 <Badge key={index} variant="outline" className="border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300">
                                   {interest}
                                 </Badge>
@@ -350,7 +358,7 @@ export default function Home() {
                             <CardTitle className="text-lg">Communication Style</CardTitle>
                           </CardHeader>
                           <CardContent>
-                            <p className="text-gray-700 dark:text-gray-300">{analysis.communication_style}</p>
+                            <p className="text-gray-700 dark:text-gray-300">{(analysis as any).communication_style?.description || (analysis as any).communication_style || 'Warm and engaging communication style'}</p>
                           </CardContent>
                         </Card>
 
@@ -360,7 +368,7 @@ export default function Home() {
                           </CardHeader>
                           <CardContent>
                             <div className="flex flex-wrap gap-2">
-                              {analysis.values.map((value, index) => (
+                              {((analysis as any).values || []).map((value: string, index: number) => (
                                 <Badge key={index} variant="outline" className="border-green-200 dark:border-green-800 text-green-700 dark:text-green-300">
                                   {value}
                                 </Badge>
