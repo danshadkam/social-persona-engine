@@ -119,10 +119,10 @@ export default function Home() {
       setChatMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
       console.error('Error sending message:', error);
-      // Fallback response
+      // Fallback response with safe access to analysis
       const fallbackMessage: ChatMessage = { 
         role: 'assistant', 
-        content: "Hey! I'm having some trouble connecting right now, but I'd love to chat about " + analysis.interests[0] + " or any of my other interests!"
+        content: `Hey! I'm having some trouble connecting right now, but I'd love to chat${analysis?.interests?.[0] ? ` about ${analysis.interests[0]} or any of my other interests` : ' with you'}! 💫`
       };
       setChatMessages(prev => [...prev, fallbackMessage]);
     } finally {
