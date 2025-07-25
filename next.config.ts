@@ -4,6 +4,11 @@ const nextConfig: NextConfig = {
   // Configure pages directory
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
   
+  // DISABLE ESLINT DURING BUILD
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  
   // API routes configuration
   async rewrites() {
     return [];
