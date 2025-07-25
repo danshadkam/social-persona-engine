@@ -313,6 +313,7 @@ function createFallbackData(username: string): ParsedInstagramData {
 export function convertToProfileData(parsed: ParsedInstagramData): ProfileData {
   return {
     username: parsed.username,
+    platform: 'instagram' as const,
     bio: parsed.bio,
     followers: parsed.followers,
     following: parsed.following,
@@ -321,7 +322,8 @@ export function convertToProfileData(parsed: ParsedInstagramData): ProfileData {
       likes: post.likes,
       comments: [], // Comment details not available from HTML parsing
       timestamp: post.timestamp
-    }))
+    })),
+    real_data: true
   };
 } 
 
