@@ -195,7 +195,7 @@ export default function SocialPersonaAnalyzer() {
                         Suggested First Message
                       </h3>
                       <div className="bg-gradient-to-r from-accent-50 to-primary-50 dark:from-accent-950/20 dark:to-primary-950/20 p-4 rounded-lg border border-accent-200 dark:border-accent-700">
-                        <p className="italic text-gray-700 dark:text-gray-300">"{analysisResults.suggestedMessage}"</p>
+                        <p className="italic text-gray-700 dark:text-gray-300">&ldquo;{analysisResults.suggestedMessage}&rdquo;</p>
                       </div>
                     </div>
 

@@ -115,7 +115,7 @@ export default function HeroSection() {
                   </div>
                   <div className="text-left">
                     <h3 className="font-semibold text-gray-800 dark:text-gray-200">Sample Analysis</h3>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">See what insights you'll discover</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">See what insights you&apos;ll discover</p>
                   </div>
                 </div>
                 <div className="space-y-3">
