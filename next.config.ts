@@ -32,12 +32,10 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // Experimental features for better performance
-  experimental: {
-    turbo: {
-      loaders: {
-        '.svg': ['@svgr/webpack'],
-      },
+  // Turbopack configuration (stable)
+  turbopack: {
+    rules: {
+      '*.svg': ['@svgr/webpack'],
     },
   },
 };
