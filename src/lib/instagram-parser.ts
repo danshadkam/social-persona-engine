@@ -122,7 +122,7 @@ function extractFromJSONLD($: cheerio.CheerioAPI, username: string): ParsedInsta
             posts: [],
             isVerified: false,
             isPrivate: false,
-            profileImageUrl: data.image?.url
+            profile_image_url: data.image?.url
           };
         }
       }
@@ -159,7 +159,7 @@ function extractFromSharedData($: cheerio.CheerioAPI, username: string): ParsedI
               posts: extractPostsFromSharedData(userData),
               isVerified: userData.is_verified || false,
               isPrivate: userData.is_private || false,
-              profileImageUrl: userData.profile_pic_url
+              profile_image_url: userData.profile_pic_url
             };
           }
         }
@@ -204,7 +204,7 @@ function extractFromMetaTags($: cheerio.CheerioAPI, username: string): ParsedIns
         posts: [], // Posts would need additional parsing
         isVerified: description.includes('✓') || description.includes('Verified'),
         isPrivate: description.includes('private') || description.includes('Private'),
-        profileImageUrl: $('meta[property="og:image"]').attr('content')
+        profile_image_url: $('meta[property="og:image"]').attr('content')
       };
     }
   } catch (error) {
@@ -244,7 +244,7 @@ function extractFromHTMLStructure($: cheerio.CheerioAPI, username: string): Pars
       posts: [],
       isVerified: $('.verified-badge, [data-testid="verified-badge"]').length > 0,
       isPrivate: $('[data-testid="private-account"]').length > 0,
-      profileImageUrl: $('img[alt*="profile picture"], img[alt*="Profile picture"]').attr('src')
+              profile_image_url: $('img[alt*="profile picture"], img[alt*="Profile picture"]').attr('src')
     };
   } catch (error) {
     console.warn('Failed to extract from HTML structure:', error);

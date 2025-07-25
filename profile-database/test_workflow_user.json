@@ -1,0 +1,97 @@
+{
+  "username": "test_workflow_user",
+  "analyzedAt": "2025-07-25T17:47:16.354Z",
+  "lastUpdated": "2025-07-25T17:47:16.354Z",
+  "profile": {
+    "bio": "",
+    "followers": 0,
+    "following": 0,
+    "posts": [],
+    "isVerified": false,
+    "isPrivate": false
+  },
+  "analysis": {
+    "personality_traits": [
+      "Private",
+      "Introverted",
+      "Non-disclosure",
+      "Inactive",
+      "Non-engaging"
+    ],
+    "communication_style": {
+      "type": "Non-existent",
+      "description": "The user does not have any posts or interactions, suggesting a non-existent communication style.",
+      "tone": "Neutral",
+      "emoji_usage": "None"
+    },
+    "interests": [
+      "Unknown",
+      "Unknown",
+      "Unknown",
+      "Unknown",
+      "Unknown"
+    ],
+    "values": [
+      "Privacy",
+      "Anonymity",
+      "Non-disclosure",
+      "Non-engagement"
+    ],
+    "content_themes": [
+      "None",
+      "None",
+      "None"
+    ],
+    "posting_patterns": {
+      "frequency": "regular",
+      "best_performing_content": "lifestyle posts",
+      "engagement_style": "interactive"
+    },
+    "demographic_indicators": {
+      "likely_age_range": "25-35",
+      "location_hints": [],
+      "profession_hints": []
+    }
+  },
+  "visual_data": {
+    "profile_image": {
+      "description": "Professional headshot with warm lighting",
+      "style_analysis": "Clean, modern aesthetic"
+    },
+    "post_images": [],
+    "visual_consistency": {
+      "filter_style": "natural",
+      "color_scheme": "warm tones",
+      "aesthetic_score": 0.8
+    }
+  },
+  "chat_context": {
+    "personality_summary": "The user 'test_workflow_user' on Instagram has no posts, followers, or following, suggesting a highly private and introverted personality. They value privacy and anonymity, with no discernible interests, values, or demographic indicators due to the lack of activity. There is no communication style, content themes, or posting patterns to analyze. Overall, this user appears to be inactive or uses the platform solely for content consumption without interaction.",
+    "speaking_style_examples": [],
+    "key_topics": [
+      "Unknown",
+      "Unknown",
+      "Unknown",
+      "Unknown",
+      "Unknown",
+      "None",
+      "None",
+      "None"
+    ],
+    "response_patterns": [
+      "Enthusiastic and engaging",
+      "Uses emojis to express emotions"
+    ],
+    "conversation_starters": [
+      "What's the highlight of your day?",
+      "Share something that made you smile today!"
+    ]
+  },
+  "metadata": {
+    "data_source": "real_scraped",
+    "scraping_success": true,
+    "analysis_confidence": 0.9,
+    "total_chat_messages": 8,
+    "last_chat_interaction": "2025-07-25T17:48:19.371Z"
+  }
+}

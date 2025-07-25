@@ -1,0 +1,95 @@
+{
+  "username": "heysirio",
+  "analyzedAt": "2025-07-25T17:54:34.174Z",
+  "lastUpdated": "2025-07-25T17:54:34.174Z",
+  "profile": {
+    "bio": "",
+    "followers": 0,
+    "following": 0,
+    "posts": [],
+    "isVerified": false,
+    "isPrivate": false
+  },
+  "analysis": {
+    "personality_traits": [
+      "Unknown",
+      "Unknown",
+      "Unknown",
+      "Unknown",
+      "Unknown"
+    ],
+    "communication_style": {
+      "type": "Unknown",
+      "description": "No communication data available as the user has no posts or interactions on the platform.",
+      "tone": "Unknown",
+      "emoji_usage": "none"
+    },
+    "interests": [
+      "Unknown",
+      "Unknown",
+      "Unknown",
+      "Unknown",
+      "Unknown"
+    ],
+    "values": [
+      "Unknown",
+      "Unknown",
+      "Unknown",
+      "Unknown"
+    ],
+    "content_themes": [
+      "Unknown",
+      "Unknown",
+      "Unknown"
+    ],
+    "posting_patterns": {
+      "frequency": "regular",
+      "best_performing_content": "lifestyle posts",
+      "engagement_style": "interactive"
+    },
+    "demographic_indicators": {
+      "likely_age_range": "25-35",
+      "location_hints": [],
+      "profession_hints": []
+    }
+  },
+  "visual_data": {
+    "profile_image": {
+      "description": "Professional headshot with warm lighting",
+      "style_analysis": "Clean, modern aesthetic"
+    },
+    "post_images": [],
+    "visual_consistency": {
+      "filter_style": "natural",
+      "color_scheme": "warm tones",
+      "aesthetic_score": 0.8
+    }
+  },
+  "chat_context": {
+    "personality_summary": "The Instagram profile 'heysirio' does not provide any data for analysis. The user has no posts, followers, or following, and has not filled out their bio. Therefore, it is impossible to draw any conclusions about their personality traits, communication style, interests, values, content themes, posting patterns, or demographic indicators.",
+    "speaking_style_examples": [],
+    "key_topics": [
+      "Unknown",
+      "Unknown",
+      "Unknown",
+      "Unknown",
+      "Unknown",
+      "Unknown",
+      "Unknown",
+      "Unknown"
+    ],
+    "response_patterns": [
+      "Enthusiastic and engaging"
+    ],
+    "conversation_starters": [
+      "What's the highlight of your day?",
+      "Share something that made you smile today!"
+    ]
+  },
+  "metadata": {
+    "data_source": "real_scraped",
+    "scraping_success": true,
+    "analysis_confidence": 0.9,
+    "total_chat_messages": 0
+  }
+}

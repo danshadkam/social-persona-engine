@@ -1,11 +1,16 @@
-import { createWebUnlocker } from './mcp-config';
+import { officialBrightDataMCP } from './mcp-brightdata-official';
 
 export interface ProfileData {
   username: string;
+  platform: 'instagram' | 'linkedin' | 'tiktok' | 'youtube' | 'unknown';
   bio: string;
   posts: PostData[];
   followers: number;
   following: number;
+  profile_image_url?: string;
+  is_verified?: boolean;
+  real_data?: boolean;
+  raw_data?: any;
 }
 
 export interface PostData {
@@ -21,189 +26,273 @@ export interface CommentData {
   timestamp: string;
 }
 
-export async function scrapeProfile(username: string): Promise<ProfileData> {
-  console.log(`🔍 Starting Instagram profile scraping for @${username}`);
-
-  try {
-    // Try Web Unlocker if API key is available
-    if (process.env.BRIGHT_DATA_API_KEY) {
-      console.log('🌐 Attempting Web Unlocker...');
-      const webUnlocker = createWebUnlocker();
-      const result = await webUnlocker.scrapeInstagramProfile(username);
-      
-      if (result.status_code === 200 && result.body) {
-        console.log('✅ Successfully retrieved data via Web Unlocker');
-        return await processWebUnlockerData(result, username);
-      }
-    } else {
-      console.log('⚠️ BRIGHT_DATA_API_KEY not found, using enhanced mock data');
-    }
-  } catch (error) {
-    console.error('❌ Web Unlocker failed:', error);
-    console.log('🔄 Falling back to enhanced mock data...');
-  }
-
-  // Fallback to enhanced mock data
-  return createEnhancedMockData(username);
+export interface PlatformInfo {
+  platform: string;
+  username: string;
+  url: string;
 }
 
-async function processWebUnlockerData(result: any, username: string): Promise<ProfileData> {
-  console.log('🔄 Processing Web Unlocker HTML data...');
+// Extract platform and username from various input formats
+export function detectPlatform(input: string): PlatformInfo {
+  // Clean up the input
+  const cleanInput = input.trim();
   
-  try {
-    const { parseInstagramHTML, convertToProfileData } = await import('./instagram-parser');
-    const htmlContent = result.body;
-    const screenshot = result.screenshot; // Pass screenshot to parser
-    
-    if (typeof htmlContent === 'string' && htmlContent.includes('<html')) {
-      console.log('📊 Parsing Instagram HTML content...');
-      const parsedData = parseInstagramHTML(htmlContent, username, screenshot);
-      return convertToProfileData(parsedData);
+  // Handle direct URLs
+  if (cleanInput.startsWith('http')) {
+    if (cleanInput.includes('instagram.com')) {
+      const match = cleanInput.match(/instagram\.com\/([^/?]+)/);
+      return {
+        platform: 'instagram',
+        username: match ? match[1] : cleanInput,
+        url: cleanInput
+      };
     }
-  } catch (error) {
-    console.error('❌ HTML parsing failed:', error);
+    if (cleanInput.includes('linkedin.com/in/')) {
+      const match = cleanInput.match(/linkedin\.com\/in\/([^/?]+)/);
+      return {
+        platform: 'linkedin',
+        username: match ? match[1] : cleanInput,
+        url: cleanInput
+      };
+    }
+    if (cleanInput.includes('tiktok.com/@')) {
+      const match = cleanInput.match(/tiktok\.com\/@([^/?]+)/);
+      return {
+        platform: 'tiktok',
+        username: match ? match[1] : cleanInput,
+        url: cleanInput
+      };
+    }
+    if (cleanInput.includes('youtube.com/@')) {
+      const match = cleanInput.match(/youtube\.com\/@([^/?]+)/);
+      return {
+        platform: 'youtube',
+        username: match ? match[1] : cleanInput,
+        url: cleanInput
+      };
+    }
+    // Default to unknown platform but still try to extract username
+    const parts = cleanInput.split('/');
+    const username = parts[parts.length - 1] || cleanInput;
+    return {
+      platform: 'unknown',
+      username: username,
+      url: cleanInput
+    };
   }
   
-  // Fallback if parsing fails
-  console.log('🔄 HTML parsing failed, using enhanced mock data');
-  return createEnhancedMockData(username);
-}
-
-
-
-function createEnhancedMockData(username: string): ProfileData {
-  // Create more realistic mock data based on the username
-  const mockProfiles = {
-    emrata: {
-      bio: "Model, activist, author of My Body. 📖 @inamoratawoman founder. Based in NYC & LA 🏙️",
-      followers: 29200000,
-      following: 1205,
-      posts: [
-        {
-          caption: "Sunday in the studio working on new @inamoratawoman designs ✨ Always inspired by strong women and timeless silhouettes",
-          likes: 284750,
-          comments: [
-            { text: "Obsessed with everything you create! 🔥", author: "fashion_lover_01", timestamp: new Date().toISOString() },
-            { text: "Can't wait to see the new collection!", author: "styleinspo", timestamp: new Date().toISOString() },
-          ],
-          timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-        },
-        {
-          caption: "Reading corner vibes with my latest book obsession 📚 What are you reading this week?",
-          likes: 198430,
-          comments: [
-            { text: "Love seeing your book recommendations!", author: "bookworm_babe", timestamp: new Date().toISOString() },
-            { text: "You inspire me to read more ❤️", author: "mindful_reader", timestamp: new Date().toISOString() },
-          ],
-          timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-        },
-      ],
-    },
-    natgeo: {
-      bio: "Experience the world through the lens of National Geographic 🌍 Explore, discover, protect.",
-      followers: 281000000,
-      following: 135,
-      posts: [
-        {
-          caption: "The Northern Lights dance across the Arctic sky in this breathtaking display of nature's power. Photographer @arctic_wanderer captured this magical moment in Iceland 🌌 #NorthernLights #Iceland #Photography",
-          likes: 1284750,
-          comments: [
-            { text: "This is absolutely incredible! 😍", author: "nature_lover_23", timestamp: new Date().toISOString() },
-            { text: "Iceland is on my bucket list now!", author: "travel_dreams", timestamp: new Date().toISOString() },
-          ],
-          timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-        },
-        {
-          caption: "Deep beneath the ocean surface, a rare giant squid reveals itself to our research team. These mysterious creatures can grow up to 43 feet long and remain one of the ocean's greatest mysteries 🦑 #OceanExploration #MarineBiology",
-          likes: 987430,
-          comments: [
-            { text: "Marine biology is so fascinating!", author: "ocean_explorer", timestamp: new Date().toISOString() },
-            { text: "This is why we need to protect our oceans", author: "conservationist", timestamp: new Date().toISOString() },
-          ],
-          timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-        },
-      ],
-    },
-    default: {
-      bio: `Creative individual passionate about sharing life's authentic moments. Based in ${getRandomCity()}`,
-      followers: Math.floor(Math.random() * 50000) + 10000,
-      following: Math.floor(Math.random() * 2000) + 500,
-      posts: [
-        {
-          caption: `Just wrapped up an amazing project! Sometimes the best inspiration comes from unexpected places ✨`,
-          likes: Math.floor(Math.random() * 5000) + 500,
-          comments: [
-            { text: "This is so inspiring! 🔥", author: "creative_friend", timestamp: new Date().toISOString() },
-            { text: "Love your perspective!", author: "art_enthusiast", timestamp: new Date().toISOString() },
-          ],
-          timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-        },
-        {
-          caption: `Sunday mood: coffee, creativity, and good vibes ☕️ What's everyone up to this weekend?`,
-          likes: Math.floor(Math.random() * 3000) + 200,
-          comments: [
-            { text: "Perfect Sunday vibes!", author: "weekend_warrior", timestamp: new Date().toISOString() },
-          ],
-          timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-        },
-      ],
-    },
-  };
-
-  const profile = mockProfiles[username.toLowerCase() as keyof typeof mockProfiles] || mockProfiles.default;
-  
+  // Handle @username format or plain username - default to Instagram
+  const username = cleanInput.startsWith('@') ? cleanInput.slice(1) : cleanInput;
   return {
-    username,
-    bio: `Mock bio for ${username} - ${profile.bio}`,
-    posts: profile.posts,
-    followers: profile.followers,
-    following: profile.following,
+    platform: 'instagram',
+    username: username,
+    url: `https://www.instagram.com/${username}/`
   };
 }
 
-function getRandomCity(): string {
-  const cities = ['NYC', 'LA', 'Miami', 'Chicago', 'Austin', 'Portland', 'Seattle', 'Denver'];
-  return cities[Math.floor(Math.random() * cities.length)];
-}
-
-function transformPosts(posts: any[]): PostData[] {
-  if (!Array.isArray(posts)) return [];
-  
-  return posts.map(post => ({
-    caption: post.caption || post.description || post.text || '',
-    likes: extractNumber(post.likes || post.like_count) || 0,
-    comments: transformComments(post.comments || []),
-    timestamp: post.timestamp || post.date_posted || post.created_at || new Date().toISOString(),
-  }));
-}
-
-function transformComments(comments: any[]): CommentData[] {
-  if (!Array.isArray(comments)) return [];
-  
-  return comments.map(comment => ({
-    text: comment.comment || comment.text || comment.content || '',
-    author: comment.comment_user || comment.author || comment.username || 'unknown',
-    timestamp: comment.comment_date || comment.timestamp || comment.created_at || new Date().toISOString(),
-  }));
-}
-
-function extractNumber(str: string | number): number {
-  if (typeof str === 'number') return str;
-  if (!str) return 0;
-  
-  const strValue = str.toString().toLowerCase().replace(/,/g, '');
-  
-  // Handle K, M, B suffixes
-  if (strValue.includes('k')) {
-    return Math.floor(parseFloat(strValue) * 1000);
-  }
-  if (strValue.includes('m')) {
-    return Math.floor(parseFloat(strValue) * 1000000);
-  }
-  if (strValue.includes('b')) {
-    return Math.floor(parseFloat(strValue) * 1000000000);
+// Create a safe filename from username/URL
+export function createSafeFilename(input: string): string {
+  // If it's a URL, extract meaningful part
+  if (input.startsWith('http')) {
+    const platformInfo = detectPlatform(input);
+    return platformInfo.username.replace(/[^a-zA-Z0-9_-]/g, '_');
   }
   
-  const match = strValue.match(/(\d+)/);
-  return match ? parseInt(match[1]) : 0;
+  // For usernames, just clean them
+  return input.replace(/[^a-zA-Z0-9_-]/g, '_').replace(/^@/, '');
+}
+
+export async function scrapeProfile(input: string): Promise<ProfileData> {
+  const platformInfo = detectPlatform(input);
+  console.log(`🔍 Starting ${platformInfo.platform} profile scraping for: ${platformInfo.username}`);
+  console.log(`🌐 Platform: ${platformInfo.platform}, URL: ${platformInfo.url}`);
+
+  try {
+    console.log(`🔧 [DEBUG] Starting MCP scraping for ${platformInfo.username}`);
+    
+    // Initialize the official MCP client
+    if (!officialBrightDataMCP.isClientConnected()) {
+      console.log('🔧 Initializing official Bright Data MCP...');
+      await officialBrightDataMCP.initialize();
+    }
+
+    let mcpResult: any = null;
+
+    // Use the appropriate MCP tool based on platform
+    switch (platformInfo.platform) {
+      case 'instagram':
+        console.log('📱 Using Instagram MCP tool...');
+        mcpResult = await officialBrightDataMCP.callTool('web_data_instagram_profiles', {
+          url: platformInfo.url
+        });
+        break;
+        
+      case 'linkedin':
+        console.log('💼 Using LinkedIn MCP tool...');
+        mcpResult = await officialBrightDataMCP.callTool('web_data_linkedin_person_profile', {
+          url: platformInfo.url
+        });
+        break;
+        
+      case 'tiktok':
+        console.log('🎵 Using TikTok MCP tool...');
+        mcpResult = await officialBrightDataMCP.callTool('web_data_tiktok_profiles', {
+          url: platformInfo.url
+        });
+        break;
+        
+      case 'youtube':
+        console.log('📺 Using YouTube MCP tool...');
+        mcpResult = await officialBrightDataMCP.callTool('web_data_youtube_profiles', {
+          url: platformInfo.url
+        });
+        break;
+        
+      default:
+        throw new Error(`Unsupported platform: ${platformInfo.platform}`);
+    }
+
+    console.log(`🔍 [DEBUG] MCP result:`, {
+      success: mcpResult.success,
+      hasData: !!(mcpResult.data && mcpResult.data.length > 0),
+      dataLength: mcpResult.data?.length || 0,
+      error: mcpResult.error
+    });
+
+    if (mcpResult.success && mcpResult.data && mcpResult.data.length > 0) {
+      console.log('✅ Successfully retrieved data via official MCP');
+      return processMCPData(mcpResult.data[0], platformInfo);
+    } else {
+      throw new Error(`MCP returned no data: ${mcpResult.error || 'Unknown error'}`);
+    }
+
+  } catch (error) {
+    console.error(`❌ Official MCP failed for ${platformInfo.platform}:`, error);
+    console.log('🔄 Falling back to enhanced mock data...');
+    return createEnhancedMockData(platformInfo);
+  }
+}
+
+function processMCPData(data: any, platformInfo: PlatformInfo): ProfileData {
+  try {
+    // Parse the text data (it comes as JSON string, often containing an array)
+    let parsedData = typeof data.text === 'string' ? JSON.parse(data.text) : data;
+    
+    // Handle case where parsed data is an array (common with Instagram MCP)
+    if (Array.isArray(parsedData) && parsedData.length > 0) {
+      parsedData = parsedData[0];
+    }
+    
+    console.log('📊 Processing MCP data for platform:', platformInfo.platform);
+    console.log('🔍 Parsed data keys:', Object.keys(parsedData || {}));
+
+    switch (platformInfo.platform) {
+      case 'instagram':
+        return processInstagramData(parsedData, platformInfo);
+      case 'linkedin':
+        return processLinkedInData(parsedData, platformInfo);
+      case 'tiktok':
+        return processTikTokData(parsedData, platformInfo);
+      case 'youtube':
+        return processYouTubeData(parsedData, platformInfo);
+      default:
+        throw new Error(`No processor for platform: ${platformInfo.platform}`);
+    }
+  } catch (error) {
+    console.error('❌ Error processing MCP data:', error);
+    throw error;
+  }
+}
+
+function processInstagramData(data: any, platformInfo: PlatformInfo): ProfileData {
+  return {
+    username: data.account || platformInfo.username,
+    platform: 'instagram',
+    bio: data.biography || data.bio || '',
+    followers: parseInt(data.followers) || 0,
+    following: parseInt(data.following) || 0,
+    profile_image_url: data.profile_image_link || data.profile_pic_url,
+    is_verified: data.is_verified || false,
+    posts: (data.posts || []).slice(0, 10).map((post: any) => ({
+      caption: post.caption || '',
+      likes: parseInt(post.likes) || 0,
+      comments: [],
+      timestamp: post.datetime || post.timestamp || new Date().toISOString()
+    })),
+    real_data: true,
+    raw_data: data
+  };
+}
+
+function processLinkedInData(data: any, platformInfo: PlatformInfo): ProfileData {
+  return {
+    username: platformInfo.username,
+    platform: 'linkedin',
+    bio: data.about || data.summary || '',
+    followers: parseInt(data.followers) || 0,
+    following: parseInt(data.connections) || 0,
+    profile_image_url: data.avatar || data.profile_pic_url,
+    is_verified: false, // LinkedIn doesn't have verification badges like social media
+    posts: [], // LinkedIn posts would need separate API call
+    real_data: true,
+    raw_data: data
+  };
+}
+
+function processTikTokData(data: any, platformInfo: PlatformInfo): ProfileData {
+  return {
+    username: platformInfo.username,
+    platform: 'tiktok',
+    bio: data.bio || data.description || '',
+    followers: parseInt(data.followers) || 0,
+    following: parseInt(data.following) || 0,
+    profile_image_url: data.profile_pic_url || data.avatar,
+    is_verified: data.is_verified || false,
+    posts: [], // TikTok posts would need separate API call
+    real_data: true,
+    raw_data: data
+  };
+}
+
+function processYouTubeData(data: any, platformInfo: PlatformInfo): ProfileData {
+  return {
+    username: platformInfo.username,
+    platform: 'youtube',
+    bio: data.Description || data.description || '',
+    followers: parseInt(data.subscribers) || 0,
+    following: 0, // YouTube doesn't show following count
+    profile_image_url: data.profile_image,
+    is_verified: false, // YouTube verification is different
+    posts: (data.top_videos || []).slice(0, 10).map((video: any) => ({
+      caption: video.title || '',
+      likes: parseInt(video.views) || 0,
+      comments: [],
+      timestamp: video.posted_time || new Date().toISOString()
+    })),
+    real_data: true,
+    raw_data: data
+  };
+}
+
+function createEnhancedMockData(platformInfo: PlatformInfo): ProfileData {
+  const mockData = {
+    username: platformInfo.username,
+    platform: platformInfo.platform as any,
+    bio: `This is a mock profile for ${platformInfo.username} on ${platformInfo.platform}. Enhanced with realistic personality traits and interests for demonstration purposes.`,
+    followers: Math.floor(Math.random() * 10000) + 1000,
+    following: Math.floor(Math.random() * 1000) + 100,
+    profile_image_url: `https://ui-avatars.com/api/?name=${platformInfo.username}&background=random`,
+    is_verified: Math.random() > 0.7,
+    posts: Array.from({ length: 5 }, (_, i) => ({
+      caption: `Mock post ${i + 1} for ${platformInfo.username}. This is sample content for testing purposes.`,
+      likes: Math.floor(Math.random() * 1000),
+      comments: [],
+      timestamp: new Date(Date.now() - i * 24 * 60 * 60 * 1000).toISOString()
+    })),
+    real_data: false,
+    raw_data: null
+  };
+
+  console.log(`🔄 Created enhanced mock data for ${platformInfo.platform} profile: ${platformInfo.username}`);
+  return mockData;
 } 

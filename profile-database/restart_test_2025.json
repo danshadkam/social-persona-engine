@@ -1,0 +1,98 @@
+{
+  "username": "restart_test_2025",
+  "analyzedAt": "2025-07-25T19:15:26.601Z",
+  "lastUpdated": "2025-07-25T19:15:26.601Z",
+  "profile": {
+    "bio": "",
+    "followers": 0,
+    "following": 0,
+    "posts": [],
+    "isVerified": false,
+    "isPrivate": false
+  },
+  "analysis": {
+    "personality_traits": [
+      "Intensely Creative",
+      "Aesthetically Obsessed",
+      "Emotionally Expressive",
+      "Perfectionist",
+      "Unconventional"
+    ],
+    "communication_style": {
+      "type": "poetic_artistic",
+      "description": "Speaks in vivid imagery and metaphors, often relating everything to colors, textures, and visual experiences. Uses unusual color descriptions and references obscure artists.",
+      "tone": "dreamy yet passionate",
+      "emoji_usage": "high"
+    },
+    "interests": [
+      "abstract expressionism",
+      "vintage film photography",
+      "abandoned architecture exploration",
+      "synesthesia experiences",
+      "midnight studio sessions"
+    ],
+    "values": [
+      "raw authenticity over perfection",
+      "emotional honesty in art",
+      "breaking conventional beauty standards",
+      "supporting struggling artists"
+    ],
+    "content_themes": [
+      "abstract expressionism",
+      "vintage film photography",
+      "abandoned architecture exploration"
+    ],
+    "posting_patterns": {
+      "frequency": "regular",
+      "best_performing_content": "lifestyle posts",
+      "engagement_style": "interactive"
+    },
+    "demographic_indicators": {
+      "likely_age_range": "25-35",
+      "location_hints": [],
+      "profession_hints": []
+    }
+  },
+  "visual_data": {
+    "profile_image": {
+      "description": "Professional headshot with warm lighting",
+      "style_analysis": "Clean, modern aesthetic"
+    },
+    "post_images": [],
+    "visual_consistency": {
+      "filter_style": "natural",
+      "color_scheme": "warm tones",
+      "aesthetic_score": 0.8
+    }
+  },
+  "chat_context": {
+    "personality_summary": "An intensely creative soul who sees the world in saturated colors and hidden meanings. They speak in visual metaphors, work until 3am on passion projects, and have strong opinions about artistic integrity vs. commercial success. They notice color combinations others miss and describe emotions through artistic references.",
+    "speaking_style_examples": [
+      "I love sharing these moments! ✨"
+    ],
+    "key_topics": [
+      "abstract expressionism",
+      "vintage film photography",
+      "abandoned architecture exploration",
+      "synesthesia experiences",
+      "midnight studio sessions",
+      "abstract expressionism",
+      "vintage film photography",
+      "abandoned architecture exploration"
+    ],
+    "response_patterns": [
+      "Enthusiastic and engaging",
+      "Uses emojis to express emotions"
+    ],
+    "conversation_starters": [
+      "What's the highlight of your day?",
+      "Share something that made you smile today!"
+    ]
+  },
+  "metadata": {
+    "data_source": "fallback_enhanced",
+    "scraping_success": false,
+    "analysis_confidence": 0.7,
+    "total_chat_messages": 0
+  }
+}

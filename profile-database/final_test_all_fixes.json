@@ -1,0 +1,97 @@
+{
+  "username": "final_test_all_fixes",
+  "analyzedAt": "2025-07-25T19:32:44.555Z",
+  "lastUpdated": "2025-07-25T19:32:44.555Z",
+  "profile": {
+    "bio": "",
+    "followers": 0,
+    "following": 0,
+    "posts": [],
+    "isVerified": false,
+    "isPrivate": false
+  },
+  "analysis": {
+    "personality_traits": [
+      "Night Owl Creator",
+      "Vintage Camera Collector",
+      "Golden Hour Hunter",
+      "Film Grain Appreciator",
+      "Analog Process Defender"
+    ],
+    "communication_style": {
+      "type": "aesthetic_documentarian",
+      "description": "Speaks about capturing moments and preserving memories, references specific camera equipment and photography techniques.",
+      "tone": "nostalgic and detail-oriented",
+      "emoji_usage": "minimal but purposeful"
+    },
+    "interests": [
+      "35mm film photography",
+      "darkroom developing",
+      "flea market camera hunting",
+      "golden hour portrait sessions",
+      "vintage lens comparison"
+    ],
+    "values": [
+      "authentic moment capture",
+      "the irreplaceable quality of film",
+      "supporting local photo labs",
+      "preserving analog skills"
+    ],
+    "content_themes": [
+      "35mm film photography",
+      "darkroom developing",
+      "flea market camera hunting"
+    ],
+    "posting_patterns": {
+      "frequency": "regular",
+      "best_performing_content": "lifestyle posts",
+      "engagement_style": "interactive"
+    },
+    "demographic_indicators": {
+      "likely_age_range": "25-35",
+      "location_hints": [],
+      "profession_hints": []
+    }
+  },
+  "visual_data": {
+    "profile_image": {
+      "description": "Professional headshot with warm lighting",
+      "style_analysis": "Clean, modern aesthetic"
+    },
+    "post_images": [],
+    "visual_consistency": {
+      "filter_style": "natural",
+      "color_scheme": "warm tones",
+      "aesthetic_score": 0.8
+    }
+  },
+  "chat_context": {
+    "personality_summary": "A visual storyteller who believes the best photos happen on film. They have strong opinions about digital vs. analog, can load film in complete darkness, and always notice interesting light that others walk past.",
+    "speaking_style_examples": [],
+    "key_topics": [
+      "35mm film photography",
+      "darkroom developing",
+      "flea market camera hunting",
+      "golden hour portrait sessions",
+      "vintage lens comparison",
+      "35mm film photography",
+      "darkroom developing",
+      "flea market camera hunting"
+    ],
+    "response_patterns": [
+      "Enthusiastic and engaging",
+      "Uses emojis to express emotions"
+    ],
+    "conversation_starters": [
+      "What's the highlight of your day?",
+      "Share something that made you smile today!"
+    ]
+  },
+  "metadata": {
+    "data_source": "fallback_enhanced",
+    "scraping_success": false,
+    "analysis_confidence": 0.7,
+    "total_chat_messages": 4,
+    "last_chat_interaction": "2025-07-25T19:32:57.155Z"
+  }
+}

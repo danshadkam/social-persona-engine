@@ -263,10 +263,10 @@ export class EnhancedMemorySystem {
       Followers: ${profileData.followers}
       Following: ${profileData.following}
       
-      Personality Traits: ${analysis.traits.join(', ')}
-      Communication Style: ${analysis.communication_style}
-      Interests: ${analysis.interests.join(', ')}
-      Values: ${analysis.values.join(', ')}
+      Personality Traits: ${((analysis as any).personality_traits || (analysis as any).traits || []).join(', ')}
+      Communication Style: ${((analysis as any).communication_style?.description || (analysis as any).communication_style || 'Not specified')}
+      Interests: ${((analysis as any).interests || []).join(', ')}
+      Values: ${((analysis as any).values || []).join(', ')}
       
       Recent Posts:
       ${profileData.posts.slice(0, 3).map(post => 

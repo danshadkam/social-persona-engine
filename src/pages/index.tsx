@@ -49,7 +49,8 @@ export default function Home() {
       });
 
       if (!response.ok) {
-        throw new Error('Analysis failed');
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        throw new Error(errorData.error || `Analysis failed with status ${response.status}`);
       }
 
       const data = await response.json();
@@ -110,7 +111,7 @@ export default function Home() {
         console.error('Chat API error:', response.status, errorData);
         
         if (response.status === 400 && errorData.error?.includes('Profile analysis not found')) {
-          // Show user-friendly message instead of throwing error
+          // Show user-friendly message for missing profile
           const errorMessage: ChatMessage = { 
             role: 'assistant', 
             content: '⚠️ Please analyze a profile first before chatting. Go to the "Analyze" tab and enter an Instagram username (like "nasa" or "spacex").' 
@@ -119,7 +120,13 @@ export default function Home() {
           return;
         }
         
-        throw new Error(errorData.error || `Chat failed: ${response.status} ${response.statusText}`);
+        // Handle other API errors gracefully without throwing
+        const errorMessage: ChatMessage = { 
+          role: 'assistant', 
+          content: `Sorry, I'm having some technical difficulties right now. ${errorData.error ? 'Error: ' + errorData.error : `(Status: ${response.status})`} Please try again in a moment! 🔧`
+        };
+        setChatMessages(prev => [...prev, errorMessage]);
+        return;
       }
 
       const data = await response.json();

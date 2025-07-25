@@ -37,12 +37,6 @@ interface WebUnlockerRequest {
   method: string;
   country?: string;
   render?: boolean;
-  screenshot?: boolean;
-  screenshot_options?: {
-    full_page?: boolean;
-    format?: 'png' | 'jpeg';
-    quality?: number;
-  };
   headers?: Record<string, string>;
   wait_for?: string;
   timeout?: number;
@@ -53,7 +47,6 @@ interface WebUnlockerResponse {
   status_code: number;
   headers: Record<string, string>;
   body: string;
-  screenshot?: string; // Base64 encoded screenshot
   timestamp: string;
   ip?: string;
   country?: string;
@@ -80,12 +73,6 @@ export class BrightDataWebUnlocker {
       method: 'GET',
       country: 'us',
       render: true, // Enable JavaScript rendering for dynamic content
-      screenshot: true, // Capture screenshot for visual analysis
-      screenshot_options: {
-        full_page: true,
-        format: 'png',
-        quality: 80
-      },
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -103,8 +90,7 @@ export class BrightDataWebUnlocker {
       console.log(`📡 [Web Unlocker] Making API request...`, {
         zone: this.config.zone,
         url: targetUrl,
-        render: requestBody.render,
-        screenshot: requestBody.screenshot
+        render: requestBody.render
       });
 
       const response = await fetch(this.API_ENDPOINT, {
@@ -126,7 +112,6 @@ export class BrightDataWebUnlocker {
       
       console.log(`✅ [Web Unlocker] Success!`, {
         statusCode: data.status_code,
-        hasScreenshot: !!data.screenshot,
         bodyLength: data.body?.length || 0,
         country: data.country || 'unknown'
       });

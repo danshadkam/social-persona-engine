@@ -1,0 +1,130 @@
+{
+  "username": "susnshad",
+  "analyzedAt": "2025-07-21T22:14:32.954Z",
+  "lastUpdated": "2025-07-21T22:14:32.954Z",
+  "profile": {
+    "bio": "Mock bio for susnshad - Creative individual passionate about sharing life's authentic moments. Based in NYC",
+    "followers": 31491,
+    "following": 2150,
+    "posts": [
+      {
+        "caption": "Just wrapped up an amazing project! Sometimes the best inspiration comes from unexpected places ✨",
+        "likes": 4368,
+        "comments": [
+          {
+            "text": "This is so inspiring! 🔥",
+            "author": "creative_friend",
+            "timestamp": "2025-07-21T22:14:18.005Z"
+          },
+          {
+            "text": "Love your perspective!",
+            "author": "art_enthusiast",
+            "timestamp": "2025-07-21T22:14:18.005Z"
+          }
+        ],
+        "timestamp": "2025-07-20T22:14:18.005Z"
+      },
+      {
+        "caption": "Sunday mood: coffee, creativity, and good vibes ☕️ What's everyone up to this weekend?",
+        "likes": 2207,
+        "comments": [
+          {
+            "text": "Perfect Sunday vibes!",
+            "author": "weekend_warrior",
+            "timestamp": "2025-07-21T22:14:18.005Z"
+          }
+        ],
+        "timestamp": "2025-07-18T22:14:18.005Z"
+      }
+    ],
+    "isVerified": false,
+    "isPrivate": false
+  },
+  "analysis": {
+    "personality_traits": [
+      "Creative",
+      "Passionate",
+      "Authentic",
+      "Inspirational",
+      "Social"
+    ],
+    "communication_style": {
+      "type": "Informal",
+      "description": "Susnshad communicates in an informal and friendly manner, often sharing personal experiences and thoughts. The language used is simple, relatable and engaging, making the audience feel included in the conversation.",
+      "tone": "Positive",
+      "emoji_usage": "medium"
+    },
+    "interests": [
+      "Creativity",
+      "Authenticity",
+      "Inspiration",
+      "Socializing",
+      "Urban Lifestyle"
+    ],
+    "values": [
+      "Authenticity",
+      "Creativity",
+      "Inspiration",
+      "Connection"
+    ],
+    "content_themes": [
+      "Creativity",
+      "Inspiration",
+      "Daily Life"
+    ],
+    "posting_patterns": {
+      "frequency": "regular",
+      "best_performing_content": "lifestyle posts",
+      "engagement_style": "interactive"
+    },
+    "demographic_indicators": {
+      "likely_age_range": "25-35",
+      "location_hints": [],
+      "profession_hints": []
+    }
+  },
+  "visual_data": {
+    "profile_image": {
+      "description": "Professional headshot with warm lighting",
+      "style_analysis": "Clean, modern aesthetic"
+    },
+    "post_images": [],
+    "visual_consistency": {
+      "filter_style": "natural",
+      "color_scheme": "warm tones",
+      "aesthetic_score": 0.8
+    }
+  },
+  "chat_context": {
+    "personality_summary": "Susnshad is a creative and passionate individual who values authenticity and connection. They communicate in an informal and friendly manner, often sharing personal experiences and thoughts. Their interests lie in creativity, authenticity, and urban lifestyle. Despite their low frequency posting, they engage their audience effectively by sharing personal experiences and asking questions. They are likely to be a young adult based in New York City, working in a creative profession or as a social media influencer.",
+    "speaking_style_examples": [
+      "Just wrapped up an amazing project! Sometimes the ...",
+      "Sunday mood: coffee, creativity, and good vibes ☕️..."
+    ],
+    "key_topics": [
+      "Creativity",
+      "Authenticity",
+      "Inspiration",
+      "Socializing",
+      "Urban Lifestyle",
+      "Creativity",
+      "Inspiration",
+      "Daily Life"
+    ],
+    "response_patterns": [
+      "Enthusiastic and engaging",
+      "Uses emojis to express emotions"
+    ],
+    "conversation_starters": [
+      "What's the highlight of your day?",
+      "Share something that made you smile today!"
+    ]
+  },
+  "metadata": {
+    "data_source": "fallback_enhanced",
+    "scraping_success": false,
+    "analysis_confidence": 0.7,
+    "total_chat_messages": 4,
+    "last_chat_interaction": "2025-07-21T22:16:24.901Z"
+  }
+}

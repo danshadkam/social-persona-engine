@@ -1,0 +1,100 @@
+{
+  "username": "imangadzhi",
+  "analyzedAt": "2025-07-25T18:15:40.331Z",
+  "lastUpdated": "2025-07-25T18:15:40.331Z",
+  "profile": {
+    "bio": "",
+    "followers": 0,
+    "following": 0,
+    "posts": [],
+    "isVerified": false,
+    "isPrivate": false
+  },
+  "analysis": {
+    "personality_traits": [
+      "Social",
+      "Authentic",
+      "Engaging",
+      "Optimistic",
+      "Relatable"
+    ],
+    "communication_style": {
+      "type": "friendly",
+      "description": "Warm and engaging communication focused on authentic connections",
+      "tone": "positive",
+      "emoji_usage": "medium"
+    },
+    "interests": [
+      "lifestyle",
+      "social connections",
+      "personal growth",
+      "sharing experiences",
+      "community"
+    ],
+    "values": [
+      "authenticity",
+      "connection",
+      "positivity",
+      "growth",
+      "community"
+    ],
+    "content_themes": [
+      "lifestyle",
+      "social connections",
+      "personal growth"
+    ],
+    "posting_patterns": {
+      "frequency": "regular",
+      "best_performing_content": "lifestyle posts",
+      "engagement_style": "interactive"
+    },
+    "demographic_indicators": {
+      "likely_age_range": "25-35",
+      "location_hints": [],
+      "profession_hints": []
+    }
+  },
+  "visual_data": {
+    "profile_image": {
+      "description": "Professional headshot with warm lighting",
+      "style_analysis": "Clean, modern aesthetic"
+    },
+    "post_images": [],
+    "visual_consistency": {
+      "filter_style": "natural",
+      "color_scheme": "warm tones",
+      "aesthetic_score": 0.8
+    }
+  },
+  "chat_context": {
+    "personality_summary": "A genuine and social individual who values authentic connections and sharing life experiences with their community.",
+    "speaking_style_examples": [],
+    "key_topics": [
+      "lifestyle",
+      "social connections",
+      "personal growth",
+      "sharing experiences",
+      "community",
+      "lifestyle",
+      "social connections",
+      "personal growth"
+    ],
+    "response_patterns": [
+      "Enthusiastic and engaging",
+      "Uses emojis to express emotions"
+    ],
+    "conversation_starters": [
+      "Tell me about your latest adventure!",
+      "What's something new you've learned recently?",
+      "What's the highlight of your day?",
+      "Share something that made you smile today!"
+    ]
+  },
+  "metadata": {
+    "data_source": "fallback_enhanced",
+    "scraping_success": false,
+    "analysis_confidence": 0.7,
+    "total_chat_messages": 2,
+    "last_chat_interaction": "2025-07-25T18:30:15.452Z"
+  }
+}

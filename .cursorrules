@@ -1,0 +1,303 @@
+# Social Persona Engine - Cursor Rules
+
+## Project Overview
+
+You are working on the **Social Persona Engine v1.0**, a Next.js application that analyzes social media profiles to extract personality insights and enables interactive AI conversations that mimic analyzed personalities. This system transforms social media profiles into AI personas while preserving authentic personality traits.
+
+### Core Mission
+Transform social media profiles into interactive AI personas that preserve authentic personality traits, enabling users to engage in natural conversations that feel genuine and insightful.
+
+## Architecture & Technology Stack
+
+### Frontend Stack
+- **Framework**: Next.js 15 with TypeScript
+- **UI Library**: shadcn/ui components with Tailwind CSS
+- **State Management**: React hooks with Context API
+- **Animations**: Framer Motion for smooth transitions
+- **Icons**: Lucide React icons
+- **Styling**: Tailwind CSS with dark/light mode support
+
+### Backend Stack
+- **API Framework**: Next.js API routes with TypeScript
+- **AI Integration**: OpenAI GPT-4 and text-embedding-3-small
+- **Scraping Infrastructure**: Bright Data MCP with multi-platform support
+- **Database**: File-based JSON storage for development, Redis + PostgreSQL for production
+- **Memory System**: Vector embeddings with in-memory caching and file persistence
+
+### Key Dependencies
+```json
+{
+  "@brightdata/mcp": "^2.4.1",
+  "openai": "^4.x",
+  "framer-motion": "^11.x",
+  "@radix-ui/react-*": "Latest"
+}
+```
+
+## System Architecture
+
+### 1. Data Flow Architecture
+```
+User Input → Platform Detection → MCP Scraping → GPT-4 Analysis → Database Storage → Chat Interface
+```
+
+### 2. Multi-Platform Support
+- **Instagram**: Primary platform via `web_data_instagram_profiles`
+- **LinkedIn**: Business profiles via `web_data_linkedin_person_profile`  
+- **TikTok**: Video content via `web_data_tiktok_profiles`
+- **YouTube**: Creator profiles via `web_data_youtube_profiles`
+
+### 3. MCP Integration Strategy
+- **Official MCP Client**: Primary method using `@brightdata/mcp`
+- **Direct API Client**: Fallback using REST API calls
+- **Web Unlocker**: Final fallback with screenshot capabilities
+- **Unified Client**: Automatically chooses best available method
+
+### 4. Database Architecture
+```typescript
+// Profile Database Structure
+interface DatabaseProfile {
+  id: string;
+  username: string;
+  platform: string;
+  scraped_data: ProfileData;
+  analysis: PersonalityAnalysis;
+  created_at: string;
+  updated_at: string;
+  chat_context: ChatContext;
+}
+```
+
+## Core Components
+
+### 1. Social Persona Analyzer (`src/components/social-persona-analyzer.tsx`)
+- Main analysis interface with platform selection
+- Real-time scraping and analysis pipeline
+- Results display with personality insights
+- Tab-based UI for different analysis views
+
+### 2. Chat Interface (`src/components/chat-interface.tsx`)
+- Real-time personality-aware conversations
+- Vector embedding memory for context retention
+- Automatic profile analysis for new usernames
+- Smooth animations and typing indicators
+
+### 3. Profile Database (`src/lib/profile-database.ts`)
+- Centralized profile storage and retrieval
+- LLM-optimized data formatting
+- Automatic expiration (24 hours)
+- File-based persistence with in-memory speed
+
+### 4. Memory System (`src/lib/memory-enhanced.ts`)
+- Vector embeddings for conversation context
+- Smart context retrieval based on similarity
+- Persistent storage across development sessions
+- Conversation history with metadata
+
+## API Endpoints
+
+### `/api/analyze` - Profile Analysis
+- **Input**: `{ username: string, platform?: string }`
+- **Processing**: MCP scraping → GPT-4 analysis → Database storage
+- **Output**: Complete personality analysis with confidence scores
+- **Performance**: <30 seconds response time
+
+### `/api/chat` - Persona Conversations  
+- **Input**: `{ message: string, username: string }`
+- **Processing**: Context retrieval → GPT-4 response generation
+- **Output**: Personality-consistent chat responses
+- **Performance**: <2 seconds response time
+
+### `/api/debug-memory` - Development Tools
+- **Purpose**: Memory system debugging and inspection
+- **Output**: Current memory state and conversation history
+
+## Coding Guidelines
+
+### 1. TypeScript Standards
+- **Strict Mode**: Always enabled
+- **Interface Definitions**: Define clear interfaces for all data structures
+- **Type Safety**: No `any` types unless absolutely necessary
+- **Async/Await**: Prefer over Promises for cleaner code
+
+### 2. Error Handling Patterns
+```typescript
+// Standard error handling pattern
+try {
+  const result = await risky_operation();
+  return { success: true, data: result };
+} catch (error) {
+  console.error('❌ Operation failed:', error);
+  return { 
+    success: false, 
+    error: error instanceof Error ? error.message : 'Unknown error' 
+  };
+}
+```
+
+### 3. Component Structure
+- **"use client"**: Add for client-side components
+- **Props Interface**: Always define TypeScript interfaces
+- **Error Boundaries**: Implement graceful error handling
+- **Accessibility**: Include ARIA labels and keyboard navigation
+
+### 4. API Route Standards
+```typescript
+// Standard API route structure
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  try {
+    // Implementation
+    res.status(200).json({ success: true, data: result });
+  } catch (error) {
+    console.error('❌ API Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+```
+
+## Performance Requirements
+
+### Response Time Targets
+- **Chat Messages**: <2 seconds
+- **Profile Analysis**: <30 seconds  
+- **UI Interactions**: <200ms
+- **Page Load**: <2 seconds
+
+### Scalability Targets
+- **Concurrent Users**: 100+ simultaneous analysis requests
+- **Profile Storage**: 1,000+ analyzed profiles
+- **Accuracy**: >85% personality trait accuracy
+- **Uptime**: 99.5% availability
+
+## Environment Configuration
+
+### Required Environment Variables
+```bash
+# OpenAI Configuration
+OPENAI_API_KEY=your_openai_api_key
+
+# Bright Data Configuration  
+BRIGHT_DATA_API_TOKEN=your_bright_data_token
+WEB_UNLOCKER_ZONE=your_web_unlocker_zone
+BROWSER_ZONE=your_browser_zone
+
+# Development
+NODE_ENV=development
+```
+
+### Development Setup
+- **Hot Reload**: Supported with persistent memory
+- **Mock Data**: Enhanced fallback data for development
+- **Debug Logging**: Comprehensive console output
+- **Error Recovery**: Graceful degradation
+
+## Testing Guidelines
+
+### 1. Component Testing
+- Test personality analysis accuracy
+- Verify chat response consistency
+- Check error handling robustness
+- Validate UI responsiveness
+
+### 2. API Testing
+```typescript
+// Test profile analysis
+const result = await fetch('/api/analyze', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ username: 'test_user' })
+});
+```
+
+### 3. Integration Testing
+- MCP client connectivity
+- Database persistence
+- Memory system functionality
+- Cross-platform compatibility
+
+## Security & Privacy
+
+### 1. Data Protection
+- **GDPR Compliance**: User consent and data transparency
+- **Rate Limiting**: Prevent abuse of scraping endpoints
+- **Input Validation**: Sanitize all user inputs
+- **Error Sanitization**: Don't expose internal errors
+
+### 2. API Security
+- **CORS Configuration**: Restrict to allowed origins
+- **Request Validation**: Validate all incoming data
+- **Authentication**: Implement for production deployment
+- **Monitoring**: Log suspicious activity
+
+## Development Workflow
+
+### 1. Feature Development
+1. **Reference PRD**: Always check `PRD.md` for requirements
+2. **Update Tasks**: Mark progress in `tasks.md`
+3. **Type Safety**: Ensure all TypeScript interfaces are updated
+4. **Testing**: Test both success and error scenarios
+5. **Documentation**: Update relevant documentation
+
+### 2. Code Standards
+- **Commit Messages**: Use conventional commit format
+- **Branch Naming**: `feature/description` or `fix/description`
+- **Code Reviews**: Focus on type safety and error handling
+- **Performance**: Monitor response times and memory usage
+
+### 3. Deployment Checklist
+- [ ] Environment variables configured
+- [ ] Database connections tested
+- [ ] API endpoints responding correctly
+- [ ] UI components rendering properly
+- [ ] Error handling working as expected
+
+## Key Implementation Notes
+
+### 1. Current System Status
+- ✅ **Core Features**: Instagram analysis, chat interface, memory system
+- ✅ **MCP Integration**: Multiple fallback methods implemented
+- ✅ **Database System**: File-based storage with LLM optimization
+- ✅ **Multi-Platform**: Detection and routing for 4+ platforms
+- 🔄 **In Progress**: Real-time scraping for all platforms, advanced analytics
+
+### 2. Known Limitations
+- **Rate Limits**: Bright Data API has usage limits
+- **Accuracy**: Personality analysis depends on available data quality
+- **Platform Changes**: Social media platforms may change their structure
+- **Cost Management**: OpenAI API usage needs monitoring
+
+### 3. Future Enhancements
+- **Batch Processing**: Multiple profile analysis
+- **Custom Training**: User-provided text samples
+- **Advanced Analytics**: Personality clustering and insights
+- **Export Features**: JSON/CSV data export
+- **Real-time Updates**: Live profile synchronization
+
+## Emergency Troubleshooting
+
+### 1. Common Issues
+- **Empty Analysis**: Check MCP client connectivity and fallback data
+- **Chat Errors**: Verify OpenAI API key and model availability
+- **Memory Issues**: Clear `.memory-cache.json` if corrupted
+- **UI Problems**: Check component imports and Tailwind classes
+
+### 2. Debug Commands
+```bash
+# Check environment
+npm run test:env
+
+# Test MCP connection
+npm run test:mcp
+
+# Verify memory system
+npm run debug:memory
+
+# Clear cache
+rm .memory-cache.json profile-database/*.json
+```
+
+Remember: Always reference the PRD (`PRD.md`) for feature requirements and update the task tracking (`tasks.md`) as you complete work. The system prioritizes user experience, accuracy, and reliable performance above all else. 

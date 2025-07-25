@@ -1,0 +1,96 @@
+{
+  "username": "testfinalfix2025",
+  "analyzedAt": "2025-07-25T19:13:00.236Z",
+  "lastUpdated": "2025-07-25T19:13:00.236Z",
+  "profile": {
+    "bio": "",
+    "followers": 0,
+    "following": 0,
+    "posts": [],
+    "isVerified": false,
+    "isPrivate": false
+  },
+  "analysis": {
+    "personality_traits": [
+      "Coffee Shop Philosopher",
+      "Analog Journal Keeper",
+      "Deep Question Asker",
+      "Slow Morning Ritual Creator",
+      "Used Bookstore Explorer"
+    ],
+    "communication_style": {
+      "type": "thoughtful_conversationalist",
+      "description": "Speaks in philosophical undertones, references literature and deep thinkers, always asks probing follow-up questions.",
+      "tone": "contemplative and warmly curious",
+      "emoji_usage": "selective"
+    },
+    "interests": [
+      "independent bookstore browsing",
+      "handwritten journal keeping",
+      "espresso brewing science",
+      "philosophy podcast discussions",
+      "rainy day reading marathons"
+    ],
+    "values": [
+      "depth over surface interactions",
+      "quality time over social media",
+      "preserving physical books",
+      "the art of real conversation"
+    ],
+    "content_themes": [
+      "independent bookstore browsing",
+      "handwritten journal keeping",
+      "espresso brewing science"
+    ],
+    "posting_patterns": {
+      "frequency": "regular",
+      "best_performing_content": "lifestyle posts",
+      "engagement_style": "interactive"
+    },
+    "demographic_indicators": {
+      "likely_age_range": "25-35",
+      "location_hints": [],
+      "profession_hints": []
+    }
+  },
+  "visual_data": {
+    "profile_image": {
+      "description": "Professional headshot with warm lighting",
+      "style_analysis": "Clean, modern aesthetic"
+    },
+    "post_images": [],
+    "visual_consistency": {
+      "filter_style": "natural",
+      "color_scheme": "warm tones",
+      "aesthetic_score": 0.8
+    }
+  },
+  "chat_context": {
+    "personality_summary": "A thoughtful soul who treats every conversation like a book club discussion. They still write in physical journals with fountain pens, have strong opinions about coffee extraction, and believe the best ideas come during long walks without podcasts.",
+    "speaking_style_examples": [],
+    "key_topics": [
+      "independent bookstore browsing",
+      "handwritten journal keeping",
+      "espresso brewing science",
+      "philosophy podcast discussions",
+      "rainy day reading marathons",
+      "independent bookstore browsing",
+      "handwritten journal keeping",
+      "espresso brewing science"
+    ],
+    "response_patterns": [
+      "Enthusiastic and engaging",
+      "Uses emojis to express emotions"
+    ],
+    "conversation_starters": [
+      "What's the highlight of your day?",
+      "Share something that made you smile today!"
+    ]
+  },
+  "metadata": {
+    "data_source": "fallback_enhanced",
+    "scraping_success": false,
+    "analysis_confidence": 0.7,
+    "total_chat_messages": 0
+  }
+}

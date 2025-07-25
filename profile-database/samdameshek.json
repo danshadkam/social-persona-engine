@@ -1,0 +1,163 @@
+{
+  "username": "samdameshek",
+  "analyzedAt": "2025-07-25T19:42:46.218Z",
+  "lastUpdated": "2025-07-25T19:42:46.218Z",
+  "profile": {
+    "bio": "Founder: @soap @wishmeluck \nBookings Worldwide:\napril@theonly.agency\nsam@samdameshek.com",
+    "followers": 426910,
+    "following": 3104,
+    "posts": [
+      {
+        "caption": "“I Was Yours” a film for @fae\nWritten, directed, & produced by yours truly\n\nStarring: @bregjeheinen \nCinematography: @tannerdeutsch \nEditing: @bigtonewhippinwork \nArt & Creative direction: @wickswalker and I\nStyling: @rima_rama \nglam: @carolinab_beauty \nFilm: @kodak_shootfilm",
+        "likes": 3438,
+        "comments": [],
+        "timestamp": "2024-10-09T23:45:50.000Z"
+      },
+      {
+        "caption": "Ma’am please identify the perpetrator - @cfda edition",
+        "likes": 21585,
+        "comments": [],
+        "timestamp": "2022-11-13T20:27:02.000Z"
+      },
+      {
+        "caption": "I’m at a loss of words. Thank you @forbes for taking the time to talk to me, I couldn’t be more honored. Click the link in my bio for a light read.",
+        "likes": 27763,
+        "comments": [],
+        "timestamp": "2021-09-08T18:33:09.000Z"
+      },
+      {
+        "caption": "Shibuya Sink",
+        "likes": 919,
+        "comments": [],
+        "timestamp": "2025-04-03T19:11:24.000Z"
+      },
+      {
+        "caption": "Tokyo you taught me so much - First of many images from a short trip overseas",
+        "likes": 3830,
+        "comments": [],
+        "timestamp": "2025-02-27T21:38:39.000Z"
+      },
+      {
+        "caption": "Sunday a couple Sundays ago",
+        "likes": 3889,
+        "comments": [],
+        "timestamp": "2024-11-04T20:43:52.000Z"
+      },
+      {
+        "caption": "@joeyking @flauntmagazine",
+        "likes": 1869,
+        "comments": [],
+        "timestamp": "2024-10-21T18:29:24.000Z"
+      },
+      {
+        "caption": "Infrared @isaakadoyi and a @burberry pilot hat shot / styled by yours truly",
+        "likes": 1287,
+        "comments": [],
+        "timestamp": "2024-10-18T19:00:25.000Z"
+      },
+      {
+        "caption": "“I Was Yours” a film for @fae\nWritten, directed, & produced by yours truly\n\nStarring: @bregjeheinen \nCinematography: @tannerdeutsch \nEditing: @bigtonewhippinwork \nArt & Creative direction: @wickswalker and I\nStyling: @rima_rama \nglam: @carolinab_beauty \nFilm: @kodak_shootfilm",
+        "likes": 3438,
+        "comments": [],
+        "timestamp": "2024-10-09T23:45:50.000Z"
+      },
+      {
+        "caption": "Ma’am please identify the perpetrator - @cfda edition",
+        "likes": 21585,
+        "comments": [],
+        "timestamp": "2022-11-13T20:27:02.000Z"
+      }
+    ],
+    "isVerified": false,
+    "isPrivate": false
+  },
+  "analysis": {
+    "personality_traits": [
+      "Creative",
+      "Entrepreneurial",
+      "Artistic",
+      "Worldly",
+      "Determined"
+    ],
+    "communication_style": {
+      "type": "Artistic",
+      "description": "Sam communicates in a visual and artistic manner, often sharing his work and experiences. His captions are brief but meaningful, often providing insight into his creative process or expressing gratitude.",
+      "tone": "Professional",
+      "emoji_usage": "low"
+    },
+    "interests": [
+      "Photography",
+      "Filmmaking",
+      "Travel",
+      "Fashion",
+      "Entrepreneurship"
+    ],
+    "values": [
+      "Creativity",
+      "Professionalism",
+      "Artistic expression",
+      "Innovation"
+    ],
+    "content_themes": [
+      "Photography",
+      "Travel",
+      "Fashion",
+      "Filmmaking",
+      "Entrepreneurship"
+    ],
+    "posting_patterns": {
+      "frequency": "regular",
+      "best_performing_content": "lifestyle posts",
+      "engagement_style": "interactive"
+    },
+    "demographic_indicators": {
+      "likely_age_range": "25-35",
+      "location_hints": [],
+      "profession_hints": []
+    }
+  },
+  "visual_data": {
+    "profile_image": {
+      "description": "Professional headshot with warm lighting",
+      "style_analysis": "Clean, modern aesthetic"
+    },
+    "post_images": [],
+    "visual_consistency": {
+      "filter_style": "natural",
+      "color_scheme": "warm tones",
+      "aesthetic_score": 0.8
+    }
+  },
+  "chat_context": {
+    "personality_summary": "Sam Dameshek is a creative and entrepreneurial individual with a keen interest in photography, filmmaking, and travel. He values creativity, professionalism, and innovation, which is evident in his work. He communicates in a professional and artistic manner, often sharing behind-the-scenes details of his projects. Despite not posting frequently, his high-quality and well-curated posts reflect his artistic nature and tend to garner significant engagement. Sam is likely in his late twenties to mid-thirties, based in the United States, and travels frequently for his work.",
+    "speaking_style_examples": [
+      "“I Was Yours” a film for @fae\nWritten, directed, &...",
+      "Ma’am please identify the perpetrator - @cfda edit..."
+    ],
+    "key_topics": [
+      "Photography",
+      "Filmmaking",
+      "Travel",
+      "Fashion",
+      "Entrepreneurship",
+      "Photography",
+      "Travel",
+      "Fashion"
+    ],
+    "response_patterns": [
+      "Enthusiastic and engaging",
+      "Uses emojis to express emotions"
+    ],
+    "conversation_starters": [
+      "What's the highlight of your day?",
+      "Share something that made you smile today!"
+    ]
+  },
+  "metadata": {
+    "data_source": "real_scraped",
+    "scraping_success": true,
+    "analysis_confidence": 0.9,
+    "total_chat_messages": 12,
+    "last_chat_interaction": "2025-07-25T20:12:20.257Z"
+  }
+}

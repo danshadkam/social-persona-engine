@@ -1,0 +1,76 @@
+
+> social-persona-engine@0.1.0 dev
+> next dev --turbopack
+
+   ▲ Next.js 15.3.5 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.29:3000
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 1625ms
+ ○ Compiling / ...
+ ✓ Compiled / in 3.4s
+ GET / 200 in 4219ms
+ ✓ Compiled /api/analyze in 106ms
+💾 Loaded 29 profiles from cache
+🔍 Starting analysis for @zone_test
+📁 Profile database initialized at /Users/dan/social-persona-engine/profile-database
+📊 Loaded 5 existing profiles
+🔍 Starting profile scrape for: zone_test
+🌐 Attempting Bright Data Web Unlocker...
+🔧 [Web Unlocker] Initialized with zone: web_unlocker1
+🌐 [Web Unlocker] Scraping: https://www.instagram.com/zone_test/
+📡 [Web Unlocker] Making API request... {
+  zone: 'web_unlocker1',
+  url: 'https://www.instagram.com/zone_test/',
+  render: true,
+  screenshot: true
+}
+❌ [Web Unlocker] API error (401): Invalid token
+❌ [Web Unlocker] Request failed: Error: Web Unlocker API error (401): Invalid token
+    at BrightDataWebUnlocker.scrapeInstagramProfile (src/lib/mcp-config.ts:122:14)
+    at async scrapeProfile (src/lib/scraper.ts:48:21)
+    at async handler (src/pages/api/analyze.ts:43:24)
+  120 |         const errorText = await response.text();
+  121 |         console.error(`❌ [Web Unlocker] API error (${response.status}):`, errorText);
+> 122 |         throw new Error(`Web Unlocker API error (${response.status}): ${errorText}`);
+      |              ^
+  123 |       }
+  124 |
+  125 |       const data = await response.json() as WebUnlockerResponse;
+❌ Web Unlocker failed: Error: Web Unlocker API error (401): Invalid token
+    at BrightDataWebUnlocker.scrapeInstagramProfile (src/lib/mcp-config.ts:122:14)
+    at async scrapeProfile (src/lib/scraper.ts:48:21)
+    at async handler (src/pages/api/analyze.ts:43:24)
+  120 |         const errorText = await response.text();
+  121 |         console.error(`❌ [Web Unlocker] API error (${response.status}):`, errorText);
+> 122 |         throw new Error(`Web Unlocker API error (${response.status}): ${errorText}`);
+      |              ^
+  123 |       }
+  124 |
+  125 |       const data = await response.json() as WebUnlockerResponse;
+🔄 Falling back to enhanced mock data...
+✅ Successfully created profile for zone_test {
+  followers: 28002,
+  posts: 2,
+  bio: 'Mock bio for zone_test - Creative individual passi...'
+}
+💾 Profile saved to database: @zone_test
+Failed to create embedding, using empty array: TypeError: Cannot read properties of undefined (reading 'join')
+    at EnhancedMemorySystem.createContextText (src/lib/memory-enhanced.ts:266:44)
+    at EnhancedMemorySystem.saveProfile (src/lib/memory-enhanced.ts:77:33)
+    at handler (src/pages/api/analyze.ts:132:25)
+  264 |       Following: ${profileData.following}
+  265 |       
+> 266 |       Personality Traits: ${analysis.traits.join(', ')}
+      |                                            ^
+  267 |       Communication Style: ${analysis.communication_style}
+  268 |       Interests: ${analysis.interests.join(', ')}
+  269 |       Values: ${analysis.values.join(', ')}
+✅ Enhanced profile saved for zone_test (Real data: false, Embedding: No)
+🧠 Enhanced analysis completed for @zone_test: { traits: 5, interests: 5, database_saved: true, memory_saved: true }
+ POST /api/analyze 200 in 19072ms
+🔍 Starting analysis for @therock
+📁 Using cached analysis for @therock (2.7h old)
+ POST /api/analyze 200 in 19ms

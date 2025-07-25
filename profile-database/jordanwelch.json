@@ -1,0 +1,160 @@
+{
+  "username": "jordanwelch",
+  "analyzedAt": "2025-07-25T19:01:50.636Z",
+  "lastUpdated": "2025-07-25T19:01:50.636Z",
+  "profile": {
+    "bio": "Inspire The World 🕊️",
+    "followers": 329673,
+    "following": 523,
+    "posts": [
+      {
+        "caption": "duality 🌐",
+        "likes": 20030,
+        "comments": [],
+        "timestamp": "2025-05-26T14:27:53.000Z"
+      },
+      {
+        "caption": "surprised my dad with his dream truck…. \n\nGOD IS GOOD⁣⁣ 🙏🏾",
+        "likes": 12032,
+        "comments": [],
+        "timestamp": "2025-05-20T17:35:23.000Z"
+      },
+      {
+        "caption": "coachella 🌵",
+        "likes": 12699,
+        "comments": [],
+        "timestamp": "2025-04-15T01:19:10.000Z"
+      },
+      {
+        "caption": "another day, another w 🧡",
+        "likes": 35324,
+        "comments": [],
+        "timestamp": "2024-09-28T15:50:12.000Z"
+      },
+      {
+        "caption": "God bless the internet",
+        "likes": 20416,
+        "comments": [],
+        "timestamp": "2024-07-20T16:35:29.000Z"
+      },
+      {
+        "caption": "today is the biggest day of my career so far \n\nmy app @tryviralvault was acquired by @autods_tools \n\ni’ve been building this since 2018 and it’s been the most challenging thing i’ve ever done… \n\nthis business brought me down to my lowest.\n\nback in 2020 i racked up $30,000 in debt trying to build it… \n\nsince then we’ve helped over 50,000 people start their first online stores all over the world\n\nall thanks to my amazing team & community who rode with me through the entire journey… \n\nand to everyone who used the app over the years \n\ni appreciate each and every one of you 🤞🏾❤️\n\nnow with @autods_tools we have everything we need to reach the next level & help thousands more 🔓",
+        "likes": 23232,
+        "comments": [],
+        "timestamp": "2024-06-27T10:27:59.000Z"
+      },
+      {
+        "caption": "a weekend in monaco 🇲🇨",
+        "likes": 25113,
+        "comments": [],
+        "timestamp": "2024-05-29T14:38:06.000Z"
+      },
+      {
+        "caption": "a day in dubai ⚡️",
+        "likes": 82437,
+        "comments": [],
+        "timestamp": "2024-03-25T20:04:26.000Z"
+      },
+      {
+        "caption": "Bought my mom her dream house today 🙏🏽❤️\n\nAnd it’s crazy bc our first house was from a government housing program called habitat for humanity, my mom had to help build 100 houses for them to help us get a mortgage… \n\nWe never went without anything she always sacrificed it all for us just so we can have a great life, so she deserves it all.\n\nWork hard so you can take care of yours 🤞🏾",
+        "likes": 29038,
+        "comments": [],
+        "timestamp": "2024-03-10T15:50:27.000Z"
+      },
+      {
+        "caption": "walk with the wise & become wise",
+        "likes": 22085,
+        "comments": [],
+        "timestamp": "2023-11-08T21:06:46.000Z"
+      }
+    ],
+    "isVerified": false,
+    "isPrivate": false
+  },
+  "analysis": {
+    "personality_traits": [
+      "Ambitious",
+      "Grateful",
+      "Inspirational",
+      "Resilient",
+      "Generous"
+    ],
+    "communication_style": {
+      "type": "Motivational",
+      "description": "Jordan's communication style is highly motivating and inspiring. He often shares his personal achievements and challenges, using them as a platform to inspire and encourage his followers.",
+      "tone": "Positive",
+      "emoji_usage": "medium"
+    },
+    "interests": [
+      "Entrepreneurship",
+      "Travel",
+      "Music festivals",
+      "Philanthropy",
+      "Technology"
+    ],
+    "values": [
+      "Hard work",
+      "Perseverance",
+      "Gratitude",
+      "Community"
+    ],
+    "content_themes": [
+      "Personal Success Stories",
+      "Travel Experiences",
+      "Inspirational Quotes"
+    ],
+    "posting_patterns": {
+      "frequency": "regular",
+      "best_performing_content": "lifestyle posts",
+      "engagement_style": "interactive"
+    },
+    "demographic_indicators": {
+      "likely_age_range": "25-35",
+      "location_hints": [],
+      "profession_hints": []
+    }
+  },
+  "visual_data": {
+    "profile_image": {
+      "description": "Professional headshot with warm lighting",
+      "style_analysis": "Clean, modern aesthetic"
+    },
+    "post_images": [],
+    "visual_consistency": {
+      "filter_style": "natural",
+      "color_scheme": "warm tones",
+      "aesthetic_score": 0.8
+    }
+  },
+  "chat_context": {
+    "personality_summary": "Jordan is a resilient and ambitious entrepreneur who values hard work and perseverance. He is generous and grateful, often sharing his personal success stories to inspire his large following on Instagram. Jordan enjoys traveling and attending music festivals, and he uses a motivational and positive tone in his communication. He posts infrequently, but his content, often centered around his personal achievements and acts of generosity, receives high engagement. Jordan is likely in his late twenties to mid-thirties and could be based in Monaco or Dubai.",
+    "speaking_style_examples": [
+      "surprised my dad with his dream truck…. \n\nGOD IS G..."
+    ],
+    "key_topics": [
+      "Entrepreneurship",
+      "Travel",
+      "Music festivals",
+      "Philanthropy",
+      "Technology",
+      "Personal Success Stories",
+      "Travel Experiences",
+      "Inspirational Quotes"
+    ],
+    "response_patterns": [
+      "Enthusiastic and engaging",
+      "Uses emojis to express emotions"
+    ],
+    "conversation_starters": [
+      "What's the highlight of your day?",
+      "Share something that made you smile today!"
+    ]
+  },
+  "metadata": {
+    "data_source": "real_scraped",
+    "scraping_success": true,
+    "analysis_confidence": 0.9,
+    "total_chat_messages": 16,
+    "last_chat_interaction": "2025-07-25T19:31:42.656Z"
+  }
+}

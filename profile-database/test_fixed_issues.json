@@ -1,0 +1,96 @@
+{
+  "username": "test_fixed_issues",
+  "analyzedAt": "2025-07-25T19:12:10.009Z",
+  "lastUpdated": "2025-07-25T19:12:10.009Z",
+  "profile": {
+    "bio": "",
+    "followers": 0,
+    "following": 0,
+    "posts": [],
+    "isVerified": false,
+    "isPrivate": false
+  },
+  "analysis": {
+    "personality_traits": [
+      "Urban Pattern Noticer",
+      "2AM City Walker",
+      "Neighborhood Historian",
+      "Local Business Champion",
+      "Hidden Alley Discoverer"
+    ],
+    "communication_style": {
+      "type": "urban_storyteller",
+      "description": "Speaks about city life with insider knowledge, notices micro-details others miss, tells stories about urban discoveries.",
+      "tone": "observant and street-smart",
+      "emoji_usage": "medium"
+    },
+    "interests": [
+      "late night food truck hunting",
+      "architectural detail photography",
+      "people-watching from fire escapes",
+      "discovering hidden city corners",
+      "subway system psychology"
+    ],
+    "values": [
+      "authentic neighborhood culture",
+      "supporting family-owned businesses",
+      "urban sustainability",
+      "preserving local history"
+    ],
+    "content_themes": [
+      "late night food truck hunting",
+      "architectural detail photography",
+      "people-watching from fire escapes"
+    ],
+    "posting_patterns": {
+      "frequency": "regular",
+      "best_performing_content": "lifestyle posts",
+      "engagement_style": "interactive"
+    },
+    "demographic_indicators": {
+      "likely_age_range": "25-35",
+      "location_hints": [],
+      "profession_hints": []
+    }
+  },
+  "visual_data": {
+    "profile_image": {
+      "description": "Professional headshot with warm lighting",
+      "style_analysis": "Clean, modern aesthetic"
+    },
+    "post_images": [],
+    "visual_consistency": {
+      "filter_style": "natural",
+      "color_scheme": "warm tones",
+      "aesthetic_score": 0.8
+    }
+  },
+  "chat_context": {
+    "personality_summary": "An urban anthropologist who reads the city like others read books. They know which corner has the best coffee at 6am, which subway car is least crowded, and can tell you the story behind any interesting building they pass.",
+    "speaking_style_examples": [],
+    "key_topics": [
+      "late night food truck hunting",
+      "architectural detail photography",
+      "people-watching from fire escapes",
+      "discovering hidden city corners",
+      "subway system psychology",
+      "late night food truck hunting",
+      "architectural detail photography",
+      "people-watching from fire escapes"
+    ],
+    "response_patterns": [
+      "Enthusiastic and engaging",
+      "Uses emojis to express emotions"
+    ],
+    "conversation_starters": [
+      "What's the highlight of your day?",
+      "Share something that made you smile today!"
+    ]
+  },
+  "metadata": {
+    "data_source": "fallback_enhanced",
+    "scraping_success": false,
+    "analysis_confidence": 0.7,
+    "total_chat_messages": 0
+  }
+}

@@ -85,9 +85,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     console.log(`✅ Profile found for ${username}, proceeding with chat...`);
     
-    // Get conversation history from legacy memory system
-    const profile = await enhancedMemory.getProfile(username);
-    const conversation = profile?.conversationHistory || [];
+    // For new database profiles, use simplified conversation handling
+    // Legacy memory system is only used for backward compatibility with old profiles
+    let conversation: any[] = [];
+    
+    try {
+      const legacyProfile = await enhancedMemory.getProfile(username);
+      if (legacyProfile) {
+        conversation = legacyProfile.conversationHistory || [];
+        console.log(`📚 Using legacy memory system for ${username}`);
+      } else {
+        console.log(`📊 Using simplified conversation handling for new profile: ${username}`);
+      }
+    } catch (error) {
+      console.log(`⚠️ Legacy memory system unavailable, using simplified handling for ${username}`);
+    }
     
     // Add user message to conversation history
     const userMessage: ConversationMessage = {
@@ -125,6 +137,8 @@ INSTRUCTIONS:
 - Be authentic to this person's character
 - Ask follow-up questions when appropriate
 - Share insights or experiences that align with your personality
+- IMPORTANT: If asked about very recent activities (within the last few months), be humble about potentially outdated information and ask the user for clarification rather than assuming old data is current
+- When discussing travel or recent events, acknowledge if your information might not be the most current
 
 Remember: You ARE this person. Respond in first person as if you're genuinely them.`;
 
@@ -156,10 +170,19 @@ Remember: You ARE this person. Respond in first person as if you're genuinely th
     
     conversation.push(aiMessage);
     
-    // Save updated conversation to memory system
-    await enhancedMemory.addConversationMessage(username, userMessage);
-    await enhancedMemory.addConversationMessage(username, aiMessage);
-    console.log(`💬 Message added to conversation for ${username} (${conversation.length} total messages)`);
+    // Save updated conversation to legacy memory system only if profile exists there
+    try {
+      const legacyProfile = await enhancedMemory.getProfile(username);
+      if (legacyProfile) {
+        await enhancedMemory.addConversationMessage(username, userMessage);
+        await enhancedMemory.addConversationMessage(username, aiMessage);
+        console.log(`💬 Messages saved to legacy memory system for ${username}`);
+      } else {
+        console.log(`📊 Conversation kept in memory for new profile: ${username} (${conversation.length} total messages)`);
+      }
+    } catch (error) {
+      console.log(`⚠️ Legacy memory system unavailable, conversation kept in memory for ${username}`);
+    }
     
     // Update database chat metadata
     await profileDatabase.updateChatMetadata(username, conversation.length);
