@@ -1,4 +1,4 @@
-# Social Persona Engine
+# Social Persona Engine 🚀
 
 A Next.js application that analyzes Instagram profiles to understand personality traits and enables chat conversations with AI personas that mimic the analyzed user's communication style.
 
