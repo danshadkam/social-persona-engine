@@ -1,0 +1,22 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "installCommand": "npm install",
+  "devCommand": "npm run dev",
+  "env": {
+    "OPENAI_API_KEY": "@openai-api-key",
+    "BRIGHT_DATA_API_TOKEN": "@bright-data-api-token",
+    "WEB_UNLOCKER_ZONE": "@web-unlocker-zone",
+    "BROWSER_ZONE": "@browser-zone"
+  },
+  "functions": {
+    "src/pages/api/**/*.ts": {
+      "maxDuration": 60
+    }
+  },
+  "regions": ["iad1"],
+  "github": {
+    "autoAlias": false
+  }
+} 
